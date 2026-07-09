@@ -1,0 +1,7 @@
+# Arquivos originais pesados (backup local — não vão pro GitHub)
+assets/originais/
+
+# Dependências / temporários
+node_modules/
+.DS_Store
+Thumbs.db
