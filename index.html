@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CM Produções | Estratégia, criatividade & conexão</title>
+<style>
+  :root{
+    --wine:#6d0f30;
+    --wine-dark:#4a0a20;
+    --rose:#b8455f;
+    --rose-soft:#e0a6b3;
+    --champagne:#f9ebef;
+    --blush:#f7eef0;
+    --white:#ffffff;
+    --off:#fcfcfb;
+    --ink:#1a1518;
+    --muted:#8a8085;
+    --line:#f0ecea;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Georgia','Times New Roman',serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.7;
+  }
+  h1,h2,h3{font-weight:400;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .eyebrow{
+    font-size:.7rem; letter-spacing:5px; text-transform:uppercase;
+    color:var(--rose); font-family:Georgia,serif;
+  }
+  .eyebrow.on-dark{color:var(--rose-soft);}
+  .verified{
+    display:inline-block; width:.72em; height:.72em; vertical-align:middle;
+    margin-left:.28em; position:relative; top:-.06em; flex-shrink:0;
+  }
+  .verified svg{width:100%; height:100%; display:block;}
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .9s ease, transform .9s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* NAV */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 44px;
+    transition:background .35s ease, padding .35s ease, box-shadow .35s ease;
+  }
+  header.scrolled{
+    background:rgba(255,255,255,.92); backdrop-filter:blur(10px); padding:16px 44px;
+    box-shadow:0 1px 0 var(--line);
+  }
+  .logo{
+    color:#fff; font-size:1.4rem; letter-spacing:7px; font-weight:400;
+    transition:color .35s ease;
+  }
+  .logo b{color:var(--rose-soft); font-weight:400;}
+  header.scrolled .logo{color:var(--ink);}
+  header.scrolled .logo b{color:var(--rose);}
+  nav ul{display:flex; gap:36px;}
+  nav a{
+    color:#fff; font-size:.74rem; letter-spacing:2.5px;
+    text-transform:uppercase; position:relative; padding-bottom:4px;
+    transition:color .35s ease;
+  }
+  header.scrolled nav a{color:var(--ink);}
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--rose); transition:width .25s ease;
+  }
+  nav a:hover::after{width:100%;}
+  .nav-toggle{display:none; color:#fff; font-size:1.7rem; background:none; border:none; cursor:pointer; transition:color .35s;}
+  header.scrolled .nav-toggle{color:var(--ink);}
+
+  @media (max-width:900px){
+    header{padding:20px 24px;}
+    nav ul{
+      position:fixed; top:0; right:0; bottom:0; width:78%; max-width:320px;
+      background:var(--white); flex-direction:column; gap:0;
+      padding-top:100px; transform:translateX(100%);
+      transition:transform .35s ease; box-shadow:-10px 0 40px rgba(0,0,0,.12);
+    }
+    nav ul.open{transform:translateX(0);}
+    nav ul li{border-bottom:1px solid var(--line);}
+    nav ul li a{display:block; padding:20px 32px; color:var(--ink);}
+    .nav-toggle{display:block;}
+  }
+
+  /* HERO */
+  .hero{
+    position:relative; height:100vh; min-height:640px;
+    display:flex; align-items:flex-end;
+    background-size:cover; background-position:50% 18%;
+    background-image:
+      linear-gradient(180deg, rgba(20,10,14,.28) 0%, rgba(20,10,14,.08) 35%, rgba(20,10,14,.7) 100%),
+      url('assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (6).jpg');
+  }
+  .hero-inner{padding:0 44px 92px; color:#fff; max-width:920px;}
+  .hero-inner .eyebrow{color:var(--rose-soft); margin-bottom:20px;}
+  .hero-inner h1{
+    font-size:clamp(2.5rem,6vw,4.8rem); letter-spacing:1px; margin-bottom:24px; line-height:1.1;
+    color:#fff;
+  }
+  .hero-inner h1 em{font-style:italic; color:var(--rose-soft);}
+  .hero-inner p{max-width:560px; font-size:1.15rem; color:#f5edf0; margin-bottom:36px; font-style:italic;}
+  .btn{
+    display:inline-block; padding:16px 40px;
+    border:1px solid var(--rose-soft); color:#fff;
+    letter-spacing:2.5px; font-size:.74rem; text-transform:uppercase;
+    transition:all .3s;
+  }
+  .btn:hover{background:var(--rose); color:#fff; border-color:var(--rose);}
+  .btn.solid{background:var(--rose); color:#fff; border-color:var(--rose);}
+  .btn.solid:hover{background:transparent; color:#fff; border-color:#fff;}
+  .btn.dark{border-color:var(--rose); color:var(--wine-dark);}
+  .btn.dark:hover{background:var(--rose); color:#fff;}
+  .scroll-cue{
+    position:absolute; bottom:30px; right:44px; color:#f5edf0;
+    font-size:.66rem; letter-spacing:3px; text-transform:uppercase;
+    writing-mode:vertical-rl;
+  }
+
+  section{padding:clamp(72px,10vw,120px) clamp(22px,5vw,44px);}
+  .wrap{max-width:1180px; margin:0 auto;}
+  .section-head{text-align:center; max-width:660px; margin:0 auto clamp(44px,6vw,64px);}
+  .section-head .eyebrow{display:block; margin-bottom:16px;}
+  .section-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem); color:var(--wine-dark); line-height:1.2;}
+  .section-head .rule{width:44px; height:1px; background:var(--rose); margin:20px auto 0;}
+  .section-head p{color:var(--muted); margin-top:22px; font-size:1.05rem;}
+
+  /* QUEM SOMOS */
+  #quem-somos{background:var(--white);}
+  .about-lead{
+    display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(32px,5vw,64px);
+    align-items:center; margin:0 auto clamp(56px,8vw,96px);
+  }
+  .about-lead .quote p{font-size:clamp(1.15rem,2.4vw,1.5rem); font-style:italic; color:var(--wine-dark); line-height:1.55;}
+  .about-lead .quote cite{
+    display:block; margin-top:20px; font-style:normal; font-size:.74rem; letter-spacing:3px;
+    text-transform:uppercase; color:var(--rose);
+  }
+  .about-lead img{
+    border-radius:2px; box-shadow:0 26px 60px rgba(26,21,24,.16);
+    aspect-ratio:4/5; object-fit:cover; object-position:center 20%; width:100%;
+  }
+  @media (max-width:860px){
+    .about-lead{grid-template-columns:1fr; text-align:center; gap:28px;}
+    .about-lead img{aspect-ratio:16/12; order:-1;}
+  }
+
+  .founder{
+    display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(34px,5vw,72px); align-items:center;
+    margin-bottom:clamp(56px,8vw,96px);
+  }
+  .founder:last-child{margin-bottom:0;}
+  .founder:nth-child(even) .founder-photo{order:2;}
+  .founder:nth-child(even) .founder-text{order:1;}
+  .founder-photo img{
+    border-radius:2px; box-shadow:0 30px 70px rgba(26,21,24,.16);
+    aspect-ratio:4/5; object-fit:cover; object-position:top;
+  }
+  .founder-text h3{font-size:1.9rem; color:var(--wine-dark); margin-bottom:8px; display:flex; align-items:center;}
+  @media (max-width:860px){.founder-text h3{justify-content:center;}}
+  .founder-text .role{
+    display:block; font-size:.72rem; letter-spacing:3px; text-transform:uppercase;
+    color:var(--rose); margin-bottom:24px;
+  }
+  .founder-text p{color:var(--muted); font-size:1.03rem; margin-bottom:16px;}
+  .founder-text .wa{color:var(--wine-dark); font-size:.92rem; letter-spacing:.5px;}
+  @media (max-width:860px){
+    .founder{grid-template-columns:1fr; gap:34px;}
+    .founder:nth-child(even) .founder-photo,
+    .founder:nth-child(even) .founder-text{order:initial;}
+    .founder-photo img{aspect-ratio:16/11;}
+  }
+
+  /* IMAGE BREAK */
+  .image-break{
+    height:58vh; min-height:360px; background-size:cover; background-position:center 25%;
+    background-image:
+      linear-gradient(180deg, rgba(26,21,24,.35), rgba(26,21,24,.55)),
+      url('assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (18).jpg');
+    display:flex; align-items:center; justify-content:center; text-align:center;
+  }
+  .image-break p{
+    color:#fff; font-size:clamp(1.4rem,2.6vw,2.1rem); font-style:italic; max-width:800px; padding:0 30px; line-height:1.5;
+  }
+
+  /* SERVIÇOS */
+  #servicos{background:var(--off);}
+  .plans{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  .plan-card{
+    background:var(--white); border:1px solid var(--line); border-radius:3px;
+    padding:44px 34px; display:flex; flex-direction:column;
+    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  }
+  .plan-card:hover{transform:translateY(-6px); box-shadow:0 30px 60px rgba(26,21,24,.1); border-color:var(--rose-soft);}
+  .plan-card h3{
+    color:var(--wine-dark); font-size:1.25rem; margin-bottom:26px; letter-spacing:.5px;
+    padding-bottom:22px; border-bottom:1px solid var(--line);
+  }
+  .plan-card ul{margin-bottom:28px; flex-grow:1;}
+  .plan-card li{
+    font-size:.93rem; color:var(--muted); margin-bottom:12px; padding-left:22px; position:relative;
+  }
+  .plan-card li::before{content:'—'; position:absolute; left:0; color:var(--rose);}
+  .plan-note{font-size:.82rem; color:#b0a6ab; font-style:italic; margin-bottom:16px;}
+  .plan-options{display:flex; gap:8px; flex-wrap:wrap;}
+  .plan-options span{
+    background:var(--champagne); color:var(--wine-dark); font-size:.74rem;
+    padding:7px 14px; border-radius:2px; letter-spacing:.5px;
+  }
+  @media (max-width:920px){.plans{grid-template-columns:1fr;}}
+
+  .complementares{
+    margin-top:60px; background:var(--wine-dark); color:#fff;
+    border-radius:3px; padding:56px 44px; text-align:center;
+  }
+  .complementares h3{
+    letter-spacing:4px; text-transform:uppercase; margin-bottom:36px; font-size:.82rem; color:var(--rose-soft);
+  }
+  .comp-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:1px; max-width:920px; margin:0 auto; background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .comp-grid div{font-size:.98rem; padding:22px 12px; background:var(--wine-dark);}
+
+  /* CLIENTES / FEEDBACKS */
+  #clientes-feedbacks{background:var(--white);}
+  .clients-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;}
+  .client-card{
+    text-align:center; display:flex; flex-direction:column; align-items:center;
+  }
+  .client-shot{
+    width:100%; border-radius:8px; overflow:hidden; background:var(--off);
+    border:1px solid var(--line); margin-bottom:22px;
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .client-card:hover .client-shot{transform:translateY(-6px); box-shadow:0 26px 50px rgba(26,21,24,.12);}
+  .client-shot img{width:100%; display:block;}
+  .client-card h3{font-size:1.2rem; color:var(--wine-dark); margin-bottom:4px;}
+  .client-card .handle{
+    font-size:.82rem; letter-spacing:1px; color:var(--rose); margin-bottom:10px;
+    text-transform:none;
+  }
+  .client-card .desc{font-size:.92rem; color:var(--muted); max-width:280px;}
+  @media (max-width:860px){.clients-grid{grid-template-columns:1fr; gap:44px; max-width:360px; margin:0 auto;}}
+  .fb-note{
+    text-align:center; margin-top:64px; color:var(--muted); font-style:italic; font-size:1rem;
+  }
+
+  /* BASTIDORES */
+  #bastidores{background:var(--off);}
+  .bastidores-top{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center; margin-bottom:56px;
+  }
+  .reel-player{
+    position:relative; width:100%; max-width:300px; margin:0 auto;
+    aspect-ratio:9/16; border-radius:14px; overflow:hidden;
+    box-shadow:0 24px 60px rgba(26,21,24,.22);
+    border:1px solid var(--line); background:#000;
+  }
+  .reel-player video{width:100%; height:100%; object-fit:cover; display:block;}
+  .reel-caption{max-width:420px;}
+  .reel-caption h3{font-size:1.6rem; color:var(--wine-dark); margin-bottom:16px;}
+  .reel-caption p{color:var(--muted); font-size:1.02rem;}
+  @media (max-width:860px){
+    .bastidores-top{grid-template-columns:1fr; gap:28px;}
+    .reel-caption{max-width:none; text-align:center;}
+  }
+  .gallery{columns:3 260px; column-gap:18px;}
+  .gallery img{
+    width:100%; margin-bottom:18px; border-radius:2px;
+    box-shadow:0 14px 34px rgba(26,21,24,.12);
+    transition:transform .4s ease;
+  }
+  .gallery img:hover{transform:scale(1.015);}
+
+  /* CONTATO */
+  #contato{
+    position:relative; color:#fff; text-align:center;
+    background-size:cover; background-position:center 30%;
+    background-image:
+      linear-gradient(180deg, rgba(26,21,24,.7), rgba(15,10,12,.9)),
+      url('assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (16).jpg');
+  }
+  #contato .section-head h2{color:#fff;}
+  #contato .section-head p{color:#ecdfe3;}
+  .contact-cards{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:700px; margin:0 auto;
+  }
+  .contact-card{
+    background:rgba(255,255,255,.05); border:1px solid rgba(203,176,121,.3);
+    border-radius:4px; padding:40px 24px; transition:background .25s, border-color .25s;
+  }
+  .contact-card:hover{background:rgba(255,255,255,.1); border-color:var(--rose-soft);}
+  .contact-card .name{font-size:1.2rem; margin-bottom:6px; color:var(--rose-soft);}
+  .contact-card .num{font-size:.95rem; color:#f5edf0; margin-bottom:24px;}
+  @media (max-width:700px){.contact-cards{grid-template-columns:1fr;}}
+
+  footer{
+    background:var(--wine-dark); color:#b7a9ae; text-align:center;
+    padding:44px 20px; font-size:.82rem;
+  }
+  footer .flogo{color:#fff; letter-spacing:6px; font-size:1.1rem; margin-bottom:18px;}
+  footer .flogo b{color:var(--rose-soft);}
+  footer a{color:#cbb079; border-bottom:1px solid rgba(203,176,121,.35);}
+  footer a:hover{color:#fff;}
+  .socials{margin-bottom:16px; letter-spacing:1px;}
+
+  @media (max-width:600px){
+    section{padding:96px 22px;}
+    .hero-inner{padding:0 24px 64px;}
+    .scroll-cue{display:none;}
+    .hero{min-height:560px;}
+    .logo{font-size:1.05rem; letter-spacing:3px;}
+    .plan-card{padding:34px 26px;}
+    .gallery{columns:2 150px; column-gap:12px;}
+    .gallery img{margin-bottom:12px;}
+    .complementares{padding:40px 24px;}
+    .contact-card{padding:32px 20px;}
+  }
+  @media (max-width:400px){
+    .logo{font-size:.95rem; letter-spacing:2px;}
+    .hero-inner h1{font-size:2.1rem;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="logo">C<b>M</b> PRODUÇÕES<span class="verified" title="Marca verificada"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e0a6b3" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></div>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">&#9776;</button>
+  <nav>
+    <ul id="navMenu">
+      <li><a href="#quem-somos">Quem Somos</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#clientes-feedbacks">Clientes</a></li>
+      <li><a href="#bastidores">Bastidores</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">CM Produções · Agência de Conteúdo</span>
+    <h1>Construindo marcas com <em>propósito</em>.</h1>
+    <p>Estratégia, criatividade e conexão para transformar redes sociais em extensões vivas da sua marca.</p>
+    <a href="#contato" class="btn solid">Solicitar Orçamento</a>
+  </div>
+  <span class="scroll-cue">Role para conhecer</span>
+</section>
+
+<section id="quem-somos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Quem Somos</span>
+      <h2>Duas visões, um propósito</h2>
+      <div class="rule"></div>
+      <p>A CM Produções nasceu da parceria entre Camila e Millena — estratégia e produção audiovisual lado a lado, guiadas por um só compromisso: construir marcas com identidade real.</p>
+    </div>
+
+    <div class="about-lead reveal">
+      <div class="quote">
+        <p>"Mais do que gerenciar redes sociais, criamos marcas com identidade — do planejamento estratégico à produção audiovisual, cuidamos de cada detalhe para que nossos clientes possam focar no que fazem de melhor."</p>
+        <cite>CM Produções</cite>
+      </div>
+      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (2).jpg" alt="Camila e Millena, sócias da CM Produções" loading="lazy">
+    </div>
+
+    <div class="founder reveal">
+      <div class="founder-photo">
+        <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (11).jpg" alt="Camila, sócia da CM Produções" loading="lazy">
+      </div>
+      <div class="founder-text">
+        <h3>Camila<span class="verified" title="Perfil verificado"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#b8455f" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></h3>
+        <span class="role">Estratégia & Direção de Conteúdo</span>
+        <p>À frente do planejamento estratégico e da direção criativa, Camila traduz o posicionamento de cada marca em calendários editoriais, roteiros e campanhas que realmente conversam com o público.</p>
+        <p class="wa">WhatsApp · (21) 96519-9151</p>
+      </div>
+    </div>
+
+    <div class="founder reveal">
+      <div class="founder-photo">
+        <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (1).jpg" alt="Millena, sócia da CM Produções" loading="lazy">
+      </div>
+      <div class="founder-text">
+        <h3>Millena<span class="verified" title="Perfil verificado"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#b8455f" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></h3>
+        <span class="role">Produção & Captação Audiovisual</span>
+        <p>Responsável pela captação e produção de conteúdo, Millena cuida da direção durante as gravações, edição, tratamento de cor e áudio — entregando cada vídeo pronto para publicar, com qualidade profissional.</p>
+        <p class="wa">WhatsApp · (21) 96772-1139</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="image-break reveal">
+  <p>“Toda marca tem uma história para contar — é essa história que guia cada conteúdo que produzimos.”</p>
+</div>
+
+<section id="servicos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Serviços</span>
+      <h2>Catálogo de Serviços</h2>
+      <div class="rule"></div>
+      <p>Planos pensados para cada etapa da sua marca — da estratégia à execução completa.</p>
+    </div>
+
+    <div class="plans">
+      <div class="plan-card reveal">
+        <h3>Gestão de Redes Sociais</h3>
+        <ul>
+          <li>Gerenciamento completo de até 2 redes sociais (Instagram e TikTok)</li>
+          <li>Planejamento estratégico mensal</li>
+          <li>Calendário editorial</li>
+          <li>Criação de artes para o feed (carrosséis e posts estáticos)</li>
+          <li>Captação + edição de conteúdos</li>
+          <li>Programação e publicação dos conteúdos</li>
+          <li>Organização e otimização do perfil</li>
+          <li>Roteiros para Reels</li>
+          <li>Scripts diários para Stories</li>
+          <li>Acompanhamento de métricas</li>
+          <li>Reunião mensal de alinhamento</li>
+        </ul>
+        <div class="plan-options">
+          <span>8 conteúdos/mês</span>
+          <span>12 conteúdos/mês</span>
+          <span>16 conteúdos/mês</span>
+        </div>
+      </div>
+
+      <div class="plan-card reveal">
+        <h3>Planejamento Estratégico</h3>
+        <ul>
+          <li>Planejamento estratégico personalizado</li>
+          <li>Calendário editorial mensal</li>
+          <li>Criação de artes para o feed (carrosséis e posts estáticos)</li>
+          <li>Roteiros para Reels</li>
+          <li>Scripts diários para Stories</li>
+          <li>Estratégia de posicionamento</li>
+          <li>Ideias de conteúdo personalizadas</li>
+          <li>Planejamento de campanhas</li>
+          <li>Reunião mensal de alinhamento</li>
+        </ul>
+        <div class="plan-note">Sem acesso ao perfil.</div>
+        <div class="plan-options">
+          <span>8 conteúdos/mês</span>
+          <span>12 conteúdos/mês</span>
+          <span>16 conteúdos/mês</span>
+        </div>
+      </div>
+
+      <div class="plan-card reveal">
+        <h3>Produção de Conteúdo</h3>
+        <ul>
+          <li>Planejamento da gravação</li>
+          <li>Direcionamento durante a captação</li>
+          <li>Captação profissional</li>
+          <li>Edição dos vídeos</li>
+          <li>Tratamento de cor e áudio</li>
+          <li>Entrega pronta para publicação</li>
+        </ul>
+        <div class="plan-options">
+          <span>4 vídeos/mês</span>
+          <span>8 vídeos/mês</span>
+          <span>12 vídeos/mês</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="complementares reveal">
+      <h3>Serviços Complementares</h3>
+      <div class="comp-grid">
+        <div>Gestão de Tráfego Pago</div>
+        <div>Criação de Sites</div>
+        <div>Bio Personalizada</div>
+        <div>Organização do Perfil</div>
+        <div>Edição de Vídeos</div>
+        <div>Cobertura de Eventos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="clientes-feedbacks">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Clientes</span>
+      <h2>Marcas que confiam na CM</h2>
+      <div class="rule"></div>
+      <p>Perfis reais que já contaram com a estratégia e a produção da CM Produções.</p>
+    </div>
+    <div class="clients-grid">
+      <a class="client-card reveal" href="https://instagram.com/thaismalagrida" target="_blank" rel="noopener">
+        <div class="client-shot">
+          <img src="assets/01934c014fbae1938b33f7caf08b34e3.png" alt="Perfil de Thais Malagrida no Instagram" loading="lazy">
+        </div>
+        <h3>Thais Malagrida</h3>
+        <span class="handle">@thaismalagrida</span>
+        <p class="desc">Maquiadora profissional no Rio de Janeiro — beleza clean & atemporal.</p>
+      </a>
+      <a class="client-card reveal" href="https://instagram.com/aqpseguros" target="_blank" rel="noopener">
+        <div class="client-shot">
+          <img src="assets/a0349e5630e998d9de0cacd89a4d97e2.png" alt="Perfil da AQP Seguros no Instagram" loading="lazy">
+        </div>
+        <h3>AQP Seguros</h3>
+        <span class="handle">@aqpseguros</span>
+        <p class="desc">Corretora de seguros e saúde, protegendo famílias e empresas em todo o Brasil.</p>
+      </a>
+      <a class="client-card reveal" href="https://instagram.com/dr.genesisalves" target="_blank" rel="noopener">
+        <div class="client-shot">
+          <img src="assets/drgenesis.png" alt="Perfil do Dr. Gênesis Alves no Instagram" loading="lazy">
+        </div>
+        <h3>Dr. Gênesis Alves</h3>
+        <span class="handle">@dr.genesisalves</span>
+        <p class="desc">Médico e empresário — mais de 20 mil seguidores em conteúdo de saúde e performance.</p>
+      </a>
+    </div>
+    <p class="fb-note reveal">Feedbacks e depoimentos em breve — estamos reunindo as melhores histórias.</p>
+  </div>
+</section>
+
+<section id="bastidores">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Bastidores</span>
+      <h2>Nos Bastidores</h2>
+      <div class="rule"></div>
+      <p>Um pouco do processo criativo por trás de cada conteúdo.</p>
+    </div>
+
+    <div class="bastidores-top reveal">
+      <div class="reel-caption">
+        <h3>Do roteiro à entrega</h3>
+        <p>Planejamento, captação e edição — cada detalhe cuidado de perto para que sua marca apareça com a qualidade que merece. Dê o play e veja um pouco desse processo.</p>
+      </div>
+      <div class="reel-player">
+        <video id="reelVideo" muted loop playsinline preload="auto" poster="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (20).jpg">
+          <source src="assets/bastidores.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="gallery reveal">
+      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (3).jpg" loading="lazy" alt="Bastidores CM Produções">
+      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (9).jpg" loading="lazy" alt="Bastidores CM Produções">
+      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (12).jpg" loading="lazy" alt="Bastidores CM Produções">
+      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (4).jpg" loading="lazy" alt="Bastidores CM Produções">
+      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (21).jpg" loading="lazy" alt="Bastidores CM Produções">
+      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (17).jpg" loading="lazy" alt="Bastidores CM Produções">
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow on-dark">Contato</span>
+      <h2>Vamos construir sua marca?</h2>
+      <div class="rule"></div>
+      <p>Fale diretamente com a Camila ou a Millena e receba uma proposta sob medida.</p>
+    </div>
+    <div class="contact-cards reveal">
+      <div class="contact-card">
+        <div class="name">Camila</div>
+        <div class="num">(21) 96519-9151</div>
+        <a class="btn" href="https://wa.me/5521965199151" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
+      <div class="contact-card">
+        <div class="name">Millena</div>
+        <div class="num">(21) 96772-1139</div>
+        <a class="btn" href="https://wa.me/5521967721139" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">C<b>M</b> PRODUÇÕES</div>
+  <div class="socials">
+    <a href="https://instagram.com/camilagomes.csg" target="_blank" rel="noopener">@camilagomes.csg</a> ·
+    <a href="https://instagram.com/millenasantys" target="_blank" rel="noopener">@millenasantys</a> ·
+    <a href="https://www.facebook.com/share/1CyiESe9HT/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
+  </div>
+  <div>&copy; 2026 CM Produções. Todos os direitos reservados.</div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+  navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Mini player: toca em loop quando visível, pausa ao sair da tela
+  const reel = document.getElementById('reelVideo');
+  if (reel) {
+    const reelIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const p = reel.play();
+          if (p) p.catch(() => {});
+        } else {
+          reel.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+    reelIO.observe(reel);
+  }
+</script>
+
+</body>
+</html>
