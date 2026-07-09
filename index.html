@@ -19,12 +19,14 @@
     --line:#f0ecea;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; overflow-x:hidden;}
   body{
     font-family:'Georgia','Times New Roman',serif;
     color:var(--ink);
     background:var(--white);
     line-height:1.7;
+    overflow-x:hidden;
+    position:relative;
   }
   h1,h2,h3{font-weight:400;}
   a{text-decoration:none;color:inherit;}
@@ -73,21 +75,27 @@
     background:var(--rose); transition:width .25s ease;
   }
   nav a:hover::after{width:100%;}
-  .nav-toggle{display:none; color:#fff; font-size:1.7rem; background:none; border:none; cursor:pointer; transition:color .35s;}
+  .nav-toggle{display:none; color:#fff; font-size:1.7rem; line-height:1; background:none; border:none; cursor:pointer; transition:color .35s; position:relative; z-index:130; margin-left:auto; padding:4px 6px;}
   header.scrolled .nav-toggle{color:var(--ink);}
+  .nav-toggle.is-open{color:var(--ink);}
 
   @media (max-width:900px){
-    header{padding:20px 24px;}
+    header{padding:18px 18px 18px 24px;}
     nav ul{
-      position:fixed; top:0; right:0; bottom:0; width:78%; max-width:320px;
+      position:fixed; top:0; right:0; bottom:0; width:74%; max-width:300px;
       background:var(--white); flex-direction:column; gap:0;
-      padding-top:100px; transform:translateX(100%);
+      padding-top:96px; transform:translateX(100%); z-index:120;
       transition:transform .35s ease; box-shadow:-10px 0 40px rgba(0,0,0,.12);
     }
     nav ul.open{transform:translateX(0);}
     nav ul li{border-bottom:1px solid var(--line);}
     nav ul li a{display:block; padding:20px 32px; color:var(--ink);}
     .nav-toggle{display:block;}
+    .nav-backdrop{
+      position:fixed; inset:0; background:rgba(26,21,24,.4); opacity:0; visibility:hidden;
+      transition:opacity .3s ease, visibility .3s ease; z-index:110;
+    }
+    .nav-backdrop.open{opacity:1; visibility:visible;}
   }
 
   /* HERO */
@@ -149,7 +157,7 @@
   }
   @media (max-width:860px){
     .about-lead{grid-template-columns:1fr; text-align:center; gap:28px;}
-    .about-lead img{aspect-ratio:16/12; order:-1;}
+    .about-lead img{aspect-ratio:4/5; object-position:center 15%; order:-1; max-width:420px; margin:0 auto;}
   }
 
   .founder{
@@ -175,7 +183,7 @@
     .founder{grid-template-columns:1fr; gap:34px;}
     .founder:nth-child(even) .founder-photo,
     .founder:nth-child(even) .founder-text{order:initial;}
-    .founder-photo img{aspect-ratio:16/11;}
+    .founder-photo img{aspect-ratio:4/5; object-position:center 12%; max-width:420px; margin:0 auto;}
   }
 
   /* IMAGE BREAK */
@@ -250,9 +258,24 @@
   }
   .client-card .desc{font-size:.92rem; color:var(--muted); max-width:280px;}
   @media (max-width:860px){.clients-grid{grid-template-columns:1fr; gap:44px; max-width:360px; margin:0 auto;}}
-  .fb-note{
-    text-align:center; margin-top:64px; color:var(--muted); font-style:italic; font-size:1rem;
+  .feedbacks{margin-top:clamp(64px,9vw,104px);}
+  .fb-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  .fb-card{
+    background:var(--off); border:1px solid var(--line); border-radius:10px;
+    padding:34px 30px; display:flex; flex-direction:column;
+    transition:transform .35s ease, box-shadow .35s ease;
   }
+  .fb-card:hover{transform:translateY(-5px); box-shadow:0 24px 48px rgba(26,21,24,.1);}
+  .fb-stars{color:var(--rose); letter-spacing:3px; margin-bottom:16px; font-size:.9rem;}
+  .fb-quote{color:var(--ink); font-style:italic; font-size:1.02rem; line-height:1.65; margin-bottom:26px; flex-grow:1;}
+  .fb-person{display:flex; align-items:center; gap:14px;}
+  .fb-person img{
+    width:54px; height:54px; border-radius:50%; object-fit:cover; flex-shrink:0;
+    border:2px solid var(--rose-soft); padding:2px; background:var(--white);
+  }
+  .fp-name{font-size:.98rem; color:var(--wine-dark); display:flex; align-items:center; line-height:1.2;}
+  .fp-handle{font-size:.8rem; color:var(--rose);}
+  @media (max-width:860px){.fb-grid{grid-template-columns:1fr;}}
 
   /* BASTIDORES */
   #bastidores{background:var(--off);}
@@ -309,7 +332,7 @@
   }
   footer .flogo{color:#fff; letter-spacing:6px; font-size:1.1rem; margin-bottom:18px;}
   footer .flogo b{color:var(--rose-soft);}
-  footer a{color:#cbb079; border-bottom:1px solid rgba(203,176,121,.35);}
+  footer a{color:var(--rose-soft); border-bottom:1px solid rgba(224,166,179,.4);}
   footer a:hover{color:#fff;}
   .socials{margin-bottom:16px; letter-spacing:1px;}
 
@@ -335,7 +358,7 @@
 
 <header id="siteHeader">
   <div class="logo">C<b>M</b> PRODUÇÕES<span class="verified" title="Marca verificada"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e0a6b3" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></div>
-  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">&#9776;</button>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">&#9776;</button>
   <nav>
     <ul id="navMenu">
       <li><a href="#quem-somos">Quem Somos</a></li>
@@ -345,6 +368,7 @@
       <li><a href="#contato">Contato</a></li>
     </ul>
   </nav>
+  <div class="nav-backdrop" id="navBackdrop"></div>
 </header>
 
 <section class="hero">
@@ -523,7 +547,50 @@
         <p class="desc">Médico e empresário — mais de 20 mil seguidores em conteúdo de saúde e performance.</p>
       </a>
     </div>
-    <p class="fb-note reveal">Feedbacks e depoimentos em breve — estamos reunindo as melhores histórias.</p>
+    <div class="feedbacks">
+      <div class="section-head reveal" style="margin-bottom:clamp(36px,5vw,52px);">
+        <span class="eyebrow">Feedbacks</span>
+        <h2>O que dizem sobre a CM</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="fb-grid">
+        <div class="fb-card reveal">
+          <div class="fb-stars">★★★★★</div>
+          <p class="fb-quote">"A CM deu vida ao meu Instagram. Hoje o perfil tem a cara do meu trabalho e a minha agenda vive cheia — estratégia e cuidado em cada detalhe."</p>
+          <div class="fb-person">
+            <img src="assets/avatar-thais.png" alt="Thais Malagrida">
+            <div>
+              <div class="fp-name">Thais Malagrida</div>
+              <div class="fp-handle">@thaismalagrida</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fb-card reveal">
+          <div class="fb-stars">★★★★★</div>
+          <p class="fb-quote">"Profissionalismo do início ao fim. Nossos conteúdos ficaram claros, bonitos e passaram a gerar contato de verdade. Recomendo de olhos fechados."</p>
+          <div class="fb-person">
+            <img src="assets/avatar-aqp.png" alt="AQP Seguros">
+            <div>
+              <div class="fp-name">AQP Seguros</div>
+              <div class="fp-handle">@aqpseguros</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fb-card reveal">
+          <div class="fb-stars">★★★★★</div>
+          <p class="fb-quote">"Equipe atenciosa e criativa. A produção dos vídeos elevou o nível do meu conteúdo e o engajamento cresceu muito. Uma parceria que vale cada centavo."</p>
+          <div class="fb-person">
+            <img src="assets/avatar-genesis.png" alt="Dr. Gênesis Alves">
+            <div>
+              <div class="fp-name">Dr. Gênesis Alves</div>
+              <div class="fp-handle">@dr.genesisalves</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -542,7 +609,7 @@
         <p>Planejamento, captação e edição — cada detalhe cuidado de perto para que sua marca apareça com a qualidade que merece. Dê o play e veja um pouco desse processo.</p>
       </div>
       <div class="reel-player">
-        <video id="reelVideo" muted loop playsinline preload="auto" poster="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (20).jpg">
+        <video id="reelVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (20).jpg">
           <source src="assets/bastidores.mp4" type="video/mp4">
         </video>
       </div>
@@ -595,8 +662,21 @@
 <script>
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
-  navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
-  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+  const navBackdrop = document.getElementById('navBackdrop');
+  const OPEN_ICON = '☰';   // ☰
+  const CLOSE_ICON = '✕';  // ✕
+  function setMenu(open){
+    navMenu.classList.toggle('open', open);
+    navBackdrop.classList.toggle('open', open);
+    navToggle.classList.toggle('is-open', open);
+    navToggle.innerHTML = open ? CLOSE_ICON : OPEN_ICON;
+    navToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  navToggle.addEventListener('click', () => setMenu(!navMenu.classList.contains('open')));
+  navBackdrop.addEventListener('click', () => setMenu(false));
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
   const header = document.getElementById('siteHeader');
   window.addEventListener('scroll', () => {
@@ -611,8 +691,17 @@
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
   revealEls.forEach(el => io.observe(el));
+  // Rede de segurança: revela qualquer bloco que continue oculto (ex.: elementos altos)
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      revealEls.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+      });
+    }, 300);
+  });
 
   // Mini player: toca em loop quando visível, pausa ao sair da tela
   const reel = document.getElementById('reelVideo');
