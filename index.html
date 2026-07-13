@@ -122,16 +122,35 @@
   .hero-inner h1 em{font-style:italic; color:var(--rose-soft);}
   .hero-inner p{max-width:560px; font-size:1.2rem; color:#f5edf0; margin-bottom:36px; font-family:'Fraunces',serif; font-style:italic;}
   .btn{
-    display:inline-block; padding:16px 40px;
+    display:inline-block; padding:16px 40px; position:relative; overflow:hidden;
     border:1px solid var(--rose-soft); color:#fff;
     letter-spacing:2.5px; font-size:.74rem; text-transform:uppercase;
-    transition:all .3s;
+    transition:background .3s, color .3s, border-color .3s, box-shadow .3s, transform .3s;
   }
-  .btn:hover{background:var(--rose); color:#fff; border-color:var(--rose);}
+  .btn::after{
+    content:''; position:absolute; top:0; left:-150%; width:60%; height:100%; pointer-events:none;
+    background:linear-gradient(115deg, transparent 0%, rgba(255,255,255,.45) 50%, transparent 100%);
+    transform:skewX(-20deg);
+  }
+  .btn:hover::after{animation:btn-shine .85s ease forwards;}
+  @keyframes btn-shine{0%{left:-150%;}100%{left:160%;}}
+  .btn:hover{background:var(--rose); color:#fff; border-color:var(--rose); transform:translateY(-2px); box-shadow:0 10px 30px rgba(184,69,95,.35);}
   .btn.solid{background:var(--rose); color:#fff; border-color:var(--rose);}
   .btn.solid:hover{background:transparent; color:#fff; border-color:#fff;}
   .btn.dark{border-color:var(--rose); color:var(--wine-dark);}
   .btn.dark:hover{background:var(--rose); color:#fff;}
+  .hero .btn{animation:cta-glow 3s ease-in-out infinite;}
+  .hero .btn:hover{animation:none;}
+  @keyframes cta-glow{
+    0%,100%{box-shadow:0 0 0 0 rgba(184,69,95,.55);}
+    50%{box-shadow:0 0 0 12px rgba(184,69,95,0);}
+  }
+  /* Barra de progresso de rolagem */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:3px; width:0; z-index:300;
+    background:linear-gradient(90deg, var(--rose), var(--rose-soft));
+    box-shadow:0 0 10px rgba(184,69,95,.6);
+  }
   .scroll-cue{
     position:absolute; bottom:30px; right:44px; color:#f5edf0;
     font-size:.66rem; letter-spacing:3px; text-transform:uppercase;
@@ -143,7 +162,12 @@
   .section-head{text-align:center; max-width:660px; margin:0 auto clamp(44px,6vw,64px);}
   .section-head .eyebrow{display:block; margin-bottom:16px;}
   .section-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem); color:var(--wine-dark); line-height:1.2;}
-  .section-head .rule{width:44px; height:1px; background:var(--rose); margin:20px auto 0;}
+  .section-head .rule{
+    width:44px; height:2px; margin:20px auto 0; border-radius:2px;
+    background:linear-gradient(90deg, var(--rose-soft), var(--rose), var(--rose-soft));
+    background-size:200% 100%; animation:rule-shimmer 3.5s linear infinite;
+  }
+  @keyframes rule-shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
   .section-head p{color:var(--muted); margin-top:22px; font-size:1.05rem;}
 
   /* QUEM SOMOS */
@@ -214,7 +238,7 @@
     padding:44px 34px; display:flex; flex-direction:column;
     transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
   }
-  .plan-card:hover{transform:translateY(-6px); box-shadow:0 30px 60px rgba(26,21,24,.1); border-color:var(--rose-soft);}
+  .plan-card:hover{transform:translateY(-6px); box-shadow:0 30px 60px rgba(184,69,95,.16); border-color:var(--rose-soft);}
   .plan-card h3{
     color:var(--wine-dark); font-size:1.25rem; margin-bottom:26px; letter-spacing:.5px;
     padding-bottom:22px; border-bottom:1px solid var(--line);
@@ -255,7 +279,7 @@
     padding:36px 32px; display:flex; flex-direction:column;
     transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
   }
-  .proof-card:hover{transform:translateY(-6px); box-shadow:0 26px 54px rgba(26,21,24,.1); border-color:var(--rose-soft);}
+  .proof-card:hover{transform:translateY(-6px); box-shadow:0 26px 54px rgba(184,69,95,.16); border-color:var(--rose-soft);}
   .proof-head{display:flex; align-items:center; gap:15px; margin-bottom:20px;}
   .proof-avatar{
     width:62px; height:62px; border-radius:50%; object-fit:cover; flex-shrink:0;
@@ -398,9 +422,18 @@
     100%{box-shadow:0 10px 30px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,0);}
   }
   @media (max-width:600px){.wa-float{right:16px; bottom:16px;} .wa-btn{width:54px; height:54px;} .wa-btn svg{width:29px; height:29px;}}
+
+  @media (prefers-reduced-motion: reduce){
+    .wa-btn, .hero .btn, .section-head .rule{animation:none !important;}
+    .btn:hover::after{animation:none !important;}
+    .scroll-progress{transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
 </style>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <header id="siteHeader">
   <div class="logo">C<b>M</b> PRODUÇÕES<span class="verified" title="Marca verificada"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e0a6b3" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></div>
@@ -695,8 +728,8 @@
 
 <div class="wa-float" id="waFloat">
   <div class="wa-options" id="waOptions">
-    <a href="https://wa.me/5521965199151?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20CM%20Produ%C3%A7%C3%B5es%20e%20gostaria%20de%20um%20or%C3%A7amento%20%F0%9F%98%8A" target="_blank" rel="noopener"><span class="dot"></span>Camila <small>Estratégia</small></a>
-    <a href="https://wa.me/5521967721139?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20CM%20Produ%C3%A7%C3%B5es%20e%20gostaria%20de%20um%20or%C3%A7amento%20%F0%9F%98%8A" target="_blank" rel="noopener"><span class="dot"></span>Millena <small>Produção</small></a>
+    <a href="https://wa.me/5521965199151?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20CM%20Produ%C3%A7%C3%B5es%20e%20gostaria%20de%20um%20or%C3%A7amento%20%F0%9F%98%8A" target="_blank" rel="noopener"><span class="dot"></span>Camila <small>Produção</small></a>
+    <a href="https://wa.me/5521967721139?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20CM%20Produ%C3%A7%C3%B5es%20e%20gostaria%20de%20um%20or%C3%A7amento%20%F0%9F%98%8A" target="_blank" rel="noopener"><span class="dot"></span>Millena <small>Estratégia</small></a>
   </div>
   <button class="wa-btn" id="waBtn" aria-label="Falar no WhatsApp" aria-expanded="false">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C4.4 9.6 9.6 4.4 16 4.4S27.6 9.6 27.6 15 22.4 24.8 16 24.8zm6.5-8.3c-.4-.2-2.1-1-2.4-1.1-.3-.1-.6-.2-.8.2-.2.4-.9 1.1-1.1 1.3-.2.2-.4.2-.8.1-.4-.2-1.5-.6-2.9-1.8-1.1-1-1.8-2.2-2-2.5-.2-.4 0-.5.2-.7.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2 0-.5 0-.7-.1-.2-.8-1.9-1.1-2.6-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.5-.3.4-1.2 1.2-1.2 2.8 0 1.7 1.2 3.3 1.4 3.5.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 2.1-.8 2.4-1.7.3-.8.3-1.6.2-1.7-.1-.2-.3-.3-.7-.4z"/></svg>
@@ -723,9 +756,15 @@
   navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
   const header = document.getElementById('siteHeader');
-  window.addEventListener('scroll', () => {
+  const scrollProgress = document.getElementById('scrollProgress');
+  const onScroll = () => {
     header.classList.toggle('scrolled', window.scrollY > 40);
-  });
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    scrollProgress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
