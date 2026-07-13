@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CM Produções | Estratégia, criatividade & conexão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --wine:#6d0f30;
@@ -21,20 +24,23 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth; overflow-x:hidden;}
   body{
-    font-family:'Georgia','Times New Roman',serif;
+    font-family:'Inter','Helvetica Neue',Arial,sans-serif;
     color:var(--ink);
     background:var(--white);
     line-height:1.7;
     overflow-x:hidden;
     position:relative;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
   }
-  h1,h2,h3{font-weight:400;}
+  h1,h2,h3{font-family:'Fraunces','Georgia',serif; font-weight:400;}
+  .serif-italic{font-family:'Fraunces','Georgia',serif; font-style:italic;}
   a{text-decoration:none;color:inherit;}
   ul{list-style:none;}
   img{max-width:100%;display:block;}
   .eyebrow{
-    font-size:.7rem; letter-spacing:5px; text-transform:uppercase;
-    color:var(--rose); font-family:Georgia,serif;
+    font-size:.68rem; letter-spacing:4px; text-transform:uppercase;
+    color:var(--rose); font-family:'Inter',sans-serif; font-weight:500;
   }
   .eyebrow.on-dark{color:var(--rose-soft);}
   .verified{
@@ -114,7 +120,7 @@
     color:#fff;
   }
   .hero-inner h1 em{font-style:italic; color:var(--rose-soft);}
-  .hero-inner p{max-width:560px; font-size:1.15rem; color:#f5edf0; margin-bottom:36px; font-style:italic;}
+  .hero-inner p{max-width:560px; font-size:1.2rem; color:#f5edf0; margin-bottom:36px; font-family:'Fraunces',serif; font-style:italic;}
   .btn{
     display:inline-block; padding:16px 40px;
     border:1px solid var(--rose-soft); color:#fff;
@@ -146,7 +152,7 @@
     display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(32px,5vw,64px);
     align-items:center; margin:0 auto clamp(56px,8vw,96px);
   }
-  .about-lead .quote p{font-size:clamp(1.15rem,2.4vw,1.5rem); font-style:italic; color:var(--wine-dark); line-height:1.55;}
+  .about-lead .quote p{font-family:'Fraunces',serif; font-size:clamp(1.2rem,2.5vw,1.6rem); font-style:italic; color:var(--wine-dark); line-height:1.5;}
   .about-lead .quote cite{
     display:block; margin-top:20px; font-style:normal; font-size:.74rem; letter-spacing:3px;
     text-transform:uppercase; color:var(--rose);
@@ -190,14 +196,14 @@
 
   /* IMAGE BREAK */
   .image-break{
-    height:58vh; min-height:360px; background-size:cover; background-position:center 25%;
+    height:58vh; min-height:360px; background-size:cover; background-position:center 42%;
     background-image:
       linear-gradient(180deg, rgba(26,21,24,.35), rgba(26,21,24,.55)),
-      url('assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (18).jpg');
+      url('assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (16).jpg');
     display:flex; align-items:center; justify-content:center; text-align:center;
   }
   .image-break p{
-    color:#fff; font-size:clamp(1.4rem,2.6vw,2.1rem); font-style:italic; max-width:800px; padding:0 30px; line-height:1.5;
+    color:#fff; font-family:'Fraunces',serif; font-size:clamp(1.4rem,2.6vw,2.1rem); font-style:italic; max-width:800px; padding:0 30px; line-height:1.5;
   }
 
   /* SERVIÇOS */
@@ -219,6 +225,7 @@
   }
   .plan-card li::before{content:'—'; position:absolute; left:0; color:var(--rose);}
   .plan-note{font-size:.82rem; color:#b0a6ab; font-style:italic; margin-bottom:16px;}
+  .plan-avail{font-size:.72rem; letter-spacing:2px; text-transform:uppercase; color:var(--wine-dark); margin-bottom:12px;}
   .plan-options{display:flex; gap:8px; flex-wrap:wrap;}
   .plan-options span{
     background:var(--champagne); color:var(--wine-dark); font-size:.74rem;
@@ -261,7 +268,7 @@
   .proof-handle:hover{text-decoration:underline;}
   .proof-role{font-size:.85rem; color:var(--muted); margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--line);}
   .proof-stars{color:var(--rose); letter-spacing:3px; font-size:.92rem; margin-bottom:14px;}
-  .proof-quote{color:var(--ink); font-style:italic; font-size:1.02rem; line-height:1.65; margin-bottom:22px; flex-grow:1;}
+  .proof-quote{color:var(--ink); font-family:'Fraunces',serif; font-style:italic; font-size:1.08rem; line-height:1.6; margin-bottom:22px; flex-grow:1;}
   .proof-link{
     align-self:flex-start; font-size:.76rem; letter-spacing:2px; text-transform:uppercase;
     color:var(--wine-dark); border-bottom:1px solid var(--rose-soft); padding-bottom:3px;
@@ -345,6 +352,52 @@
     .logo{font-size:.95rem; letter-spacing:2px;}
     .hero-inner h1{font-size:2.1rem;}
   }
+
+  /* INSTAGRAM AO VIVO */
+  #insta{background:var(--off);}
+  .insta-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:760px; margin:0 auto;}
+  .insta-card{
+    background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    box-shadow:0 16px 40px rgba(26,21,24,.07);
+  }
+  .insta-card iframe{width:100%; height:560px; border:0; display:block;}
+  .insta-follow{text-align:center; margin-top:clamp(36px,5vw,52px);}
+  .insta-follow a{
+    display:inline-flex; align-items:center; gap:10px; font-family:'Inter',sans-serif;
+    font-size:.78rem; letter-spacing:2px; text-transform:uppercase; color:var(--wine-dark);
+    border:1px solid var(--rose-soft); border-radius:30px; padding:14px 30px; transition:all .25s;
+  }
+  .insta-follow a:hover{background:var(--rose); color:#fff; border-color:var(--rose);}
+  @media (max-width:900px){.insta-grid{grid-template-columns:1fr; max-width:400px; margin:0 auto;}}
+
+  /* WHATSAPP FLUTUANTE */
+  .wa-float{position:fixed; right:22px; bottom:22px; z-index:200; display:flex; flex-direction:column; align-items:flex-end; gap:12px;}
+  .wa-options{display:flex; flex-direction:column; gap:10px; opacity:0; transform:translateY(10px) scale(.96); pointer-events:none; transition:opacity .25s ease, transform .25s ease;}
+  .wa-options.open{opacity:1; transform:translateY(0) scale(1); pointer-events:auto;}
+  .wa-options a{
+    display:flex; align-items:center; gap:10px; background:#fff; color:var(--wine-dark);
+    font-family:'Inter',sans-serif; font-size:.85rem; font-weight:500; text-decoration:none;
+    padding:10px 16px; border-radius:30px; box-shadow:0 8px 24px rgba(26,21,24,.18);
+    border:1px solid var(--line); white-space:nowrap; transition:transform .2s;
+  }
+  .wa-options a:hover{transform:translateX(-3px);}
+  .wa-options a small{color:var(--muted); font-weight:400;}
+  .wa-options a .dot{width:8px; height:8px; border-radius:50%; background:#25D366; flex-shrink:0;}
+  .wa-btn{
+    width:60px; height:60px; border-radius:50%; border:none; cursor:pointer;
+    background:#25D366; box-shadow:0 10px 30px rgba(37,211,102,.45);
+    display:flex; align-items:center; justify-content:center; transition:transform .25s, box-shadow .25s;
+    animation:wa-pulse 2.4s infinite;
+  }
+  .wa-btn:hover{transform:scale(1.06);}
+  .wa-btn svg{width:32px; height:32px;}
+  .wa-btn.is-open{animation:none;}
+  @keyframes wa-pulse{
+    0%{box-shadow:0 10px 30px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,.5);}
+    70%{box-shadow:0 10px 30px rgba(37,211,102,.45), 0 0 0 16px rgba(37,211,102,0);}
+    100%{box-shadow:0 10px 30px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,0);}
+  }
+  @media (max-width:600px){.wa-float{right:16px; bottom:16px;} .wa-btn{width:54px; height:54px;} .wa-btn svg{width:29px; height:29px;}}
 </style>
 </head>
 <body>
@@ -366,7 +419,7 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <span class="eyebrow">CM Produções · Agência de Conteúdo</span>
+    <span class="eyebrow">CM Produções · Marketing Digital</span>
     <h1>Construindo marcas com <em>propósito</em>.</h1>
     <p>Estratégia, criatividade e conexão para transformar redes sociais em extensões vivas da sua marca.</p>
     <a href="#contato" class="btn solid">Solicitar Orçamento</a>
@@ -388,7 +441,7 @@
         <p>"Mais do que gerenciar redes sociais, criamos marcas com identidade — do planejamento estratégico à produção audiovisual, cuidamos de cada detalhe para que nossos clientes possam focar no que fazem de melhor."</p>
         <cite>CM Produções</cite>
       </div>
-      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (2).jpg" alt="Camila e Millena, sócias da CM Produções" loading="lazy">
+      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (7).jpg" alt="Camila e Millena, sócias da CM Produções" loading="lazy">
     </div>
 
     <div class="founder reveal">
@@ -397,20 +450,20 @@
       </div>
       <div class="founder-text">
         <h3>Camila<span class="verified" title="Perfil verificado"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#b8455f" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></h3>
-        <span class="role">Estratégia & Direção de Conteúdo</span>
-        <p>À frente do planejamento estratégico e da direção criativa, Camila traduz o posicionamento de cada marca em calendários editoriais, roteiros e campanhas que realmente conversam com o público.</p>
+        <span class="role">Produção & Edição de Conteúdo</span>
+        <p>Responsável pela produção do dia a dia — postagens para Stories, edição de vídeos e criação de conteúdo — Camila cuida para que cada post e cada vídeo saia no ritmo e na qualidade que a marca merece.</p>
         <p class="wa">WhatsApp · (21) 96519-9151</p>
       </div>
     </div>
 
     <div class="founder reveal">
       <div class="founder-photo">
-        <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (1).jpg" alt="Millena, sócia da CM Produções" loading="lazy">
+        <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (8).jpg" alt="Millena, sócia da CM Produções" loading="lazy">
       </div>
       <div class="founder-text">
         <h3>Millena<span class="verified" title="Perfil verificado"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#b8455f" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></h3>
-        <span class="role">Produção & Captação Audiovisual</span>
-        <p>Responsável pela captação e produção de conteúdo, Millena cuida da direção durante as gravações, edição, tratamento de cor e áudio — entregando cada vídeo pronto para publicar, com qualidade profissional.</p>
+        <span class="role">Estratégia & Direção de Conteúdo</span>
+        <p>À frente do planejamento estratégico e da direção criativa, Millena traduz o posicionamento de cada marca em calendários editoriais, roteiros e campanhas que realmente conversam com o público.</p>
         <p class="wa">WhatsApp · (21) 96772-1139</p>
       </div>
     </div>
@@ -446,6 +499,7 @@
           <li>Acompanhamento de métricas</li>
           <li>Reunião mensal de alinhamento</li>
         </ul>
+        <div class="plan-avail">Planos disponíveis</div>
         <div class="plan-options">
           <span>8 conteúdos/mês</span>
           <span>12 conteúdos/mês</span>
@@ -467,6 +521,7 @@
           <li>Reunião mensal de alinhamento</li>
         </ul>
         <div class="plan-note">Sem acesso ao perfil.</div>
+        <div class="plan-avail">Planos disponíveis</div>
         <div class="plan-options">
           <span>8 conteúdos/mês</span>
           <span>12 conteúdos/mês</span>
@@ -484,6 +539,7 @@
           <li>Tratamento de cor e áudio</li>
           <li>Entrega pronta para publicação</li>
         </ul>
+        <div class="plan-avail">Planos disponíveis</div>
         <div class="plan-options">
           <span>4 vídeos/mês</span>
           <span>8 vídeos/mês</span>
@@ -560,6 +616,28 @@
   </div>
 </section>
 
+<section id="insta">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">No Instagram</span>
+      <h2>Conteúdo no ar, todo dia</h2>
+      <div class="rule"></div>
+      <p>Os perfis reais de quem confia na CM — atualizados em tempo real, direto do Instagram.</p>
+    </div>
+    <div class="insta-grid">
+      <div class="insta-card reveal">
+        <iframe src="https://www.instagram.com/thaismalagrida/embed" loading="lazy" title="Instagram de Thais Malagrida" scrolling="no"></iframe>
+      </div>
+      <div class="insta-card reveal">
+        <iframe src="https://www.instagram.com/aqpseguros/embed" loading="lazy" title="Instagram da AQP Seguros" scrolling="no"></iframe>
+      </div>
+    </div>
+    <div class="insta-follow reveal">
+      <a href="https://instagram.com/camilagomes.csg" target="_blank" rel="noopener">Siga a CM no Instagram</a>
+    </div>
+  </div>
+</section>
+
 <section id="bastidores">
   <div class="wrap">
     <div class="section-head reveal">
@@ -579,15 +657,6 @@
           <source src="assets/bastidores.mp4" type="video/mp4">
         </video>
       </div>
-    </div>
-
-    <div class="gallery reveal">
-      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (3).jpg" loading="lazy" alt="Bastidores CM Produções">
-      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (9).jpg" loading="lazy" alt="Bastidores CM Produções">
-      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (12).jpg" loading="lazy" alt="Bastidores CM Produções">
-      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (4).jpg" loading="lazy" alt="Bastidores CM Produções">
-      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (21).jpg" loading="lazy" alt="Bastidores CM Produções">
-      <img src="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (17).jpg" loading="lazy" alt="Bastidores CM Produções">
     </div>
   </div>
 </section>
@@ -624,6 +693,16 @@
   </div>
   <div>&copy; 2026 CM Produções. Todos os direitos reservados.</div>
 </footer>
+
+<div class="wa-float" id="waFloat">
+  <div class="wa-options" id="waOptions">
+    <a href="https://wa.me/5521965199151?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20CM%20Produ%C3%A7%C3%B5es%20e%20gostaria%20de%20um%20or%C3%A7amento%20%F0%9F%98%8A" target="_blank" rel="noopener"><span class="dot"></span>Camila <small>Estratégia</small></a>
+    <a href="https://wa.me/5521967721139?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20CM%20Produ%C3%A7%C3%B5es%20e%20gostaria%20de%20um%20or%C3%A7amento%20%F0%9F%98%8A" target="_blank" rel="noopener"><span class="dot"></span>Millena <small>Produção</small></a>
+  </div>
+  <button class="wa-btn" id="waBtn" aria-label="Falar no WhatsApp" aria-expanded="false">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C4.4 9.6 9.6 4.4 16 4.4S27.6 9.6 27.6 15 22.4 24.8 16 24.8zm6.5-8.3c-.4-.2-2.1-1-2.4-1.1-.3-.1-.6-.2-.8.2-.2.4-.9 1.1-1.1 1.3-.2.2-.4.2-.8.1-.4-.2-1.5-.6-2.9-1.8-1.1-1-1.8-2.2-2-2.5-.2-.4 0-.5.2-.7.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2 0-.5 0-.7-.1-.2-.8-1.9-1.1-2.6-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.5-.3.4-1.2 1.2-1.2 2.8 0 1.7 1.2 3.3 1.4 3.5.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 2.1-.8 2.4-1.7.3-.8.3-1.6.2-1.7-.1-.2-.3-.3-.7-.4z"/></svg>
+  </button>
+</div>
 
 <script>
   const navToggle = document.getElementById('navToggle');
@@ -683,6 +762,21 @@
       });
     }, { threshold: 0.4 });
     reelIO.observe(reel);
+  }
+
+  // Botão flutuante de WhatsApp
+  const waBtn = document.getElementById('waBtn');
+  const waOptions = document.getElementById('waOptions');
+  const waFloat = document.getElementById('waFloat');
+  if (waBtn) {
+    const setWa = (open) => {
+      waOptions.classList.toggle('open', open);
+      waBtn.classList.toggle('is-open', open);
+      waBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    waBtn.addEventListener('click', (e) => { e.stopPropagation(); setWa(!waOptions.classList.contains('open')); });
+    document.addEventListener('click', (e) => { if (!waFloat.contains(e.target)) setWa(false); });
+    waOptions.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setWa(false)));
   }
 </script>
 
