@@ -22,6 +22,10 @@
     --ink:#1a1518;
     --muted:#8a8085;
     --line:#f0ecea;
+    /* escala de arredondamento */
+    --r-photo:26px;  /* retratos editoriais grandes */
+    --r-media:16px;  /* galeria, reels, cartoes com imagem */
+    --r-card:8px;    /* cartoes de texto e selos */
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth; overflow-x:hidden;}
@@ -224,7 +228,9 @@
     text-transform:uppercase; color:var(--rose);
   }
   .about-lead img{
-    border-radius:2px; box-shadow:0 26px 60px rgba(26,21,24,.16);
+    /* cantos assimetricos: quebra a rigidez da grade */
+    border-radius:var(--r-photo) var(--r-photo) 90px var(--r-photo);
+    box-shadow:0 26px 60px rgba(26,21,24,.16);
     aspect-ratio:4/5; object-fit:cover; object-position:center 20%; width:100%;
   }
   @media (max-width:860px){
@@ -241,8 +247,17 @@
   .founder:nth-child(even) .founder-photo{order:2;}
   .founder:nth-child(even) .founder-text{order:1;}
   .founder-photo img{
-    border-radius:2px; box-shadow:0 30px 70px rgba(26,21,24,.16);
-    aspect-ratio:4/5; object-fit:cover; object-position:top;
+    /* canto suave voltado para o texto; espelha junto com a alternancia de lado */
+    border-radius:var(--r-photo) var(--r-photo) var(--r-photo) 80px;
+    box-shadow:0 30px 70px rgba(26,21,24,.16);
+    aspect-ratio:4/5; object-fit:cover; object-position:top; width:100%;
+  }
+  .founder:nth-child(even) .founder-photo img{
+    border-radius:var(--r-photo) var(--r-photo) 80px var(--r-photo);
+  }
+  @media (max-width:860px){
+    .founder-photo img,
+    .founder:nth-child(even) .founder-photo img{border-radius:var(--r-photo);}
   }
   .founder-text h3{font-size:1.9rem; color:var(--wine-dark); margin-bottom:8px; display:flex; align-items:center;}
   @media (max-width:860px){.founder-text h3{justify-content:center;}}
@@ -276,7 +291,7 @@
   #servicos{background:var(--off);}
   .plans{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
   .plan-card{
-    background:var(--white); border:1px solid var(--line); border-radius:3px;
+    background:var(--white); border:1px solid var(--line); border-radius:var(--r-card);
     padding:44px 34px; display:flex; flex-direction:column;
     transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
   }
@@ -301,7 +316,7 @@
 
   .complementares{
     margin-top:60px; background:var(--wine-dark); color:#fff;
-    border-radius:3px; padding:56px 44px; text-align:center;
+    border-radius:var(--r-card); padding:56px 44px; text-align:center;
   }
   .complementares h3{
     letter-spacing:4px; text-transform:uppercase; margin-bottom:36px; font-size:.82rem; color:var(--rose-soft);
@@ -317,7 +332,7 @@
   #clientes-feedbacks{background:var(--white);}
   .proof-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
   .proof-card{
-    background:var(--off); border:1px solid var(--line); border-radius:14px;
+    background:var(--off); border:1px solid var(--line); border-radius:var(--r-media);
     padding:36px 32px; display:flex; flex-direction:column;
     transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
   }
@@ -350,7 +365,7 @@
   }
   .reel-player{
     position:relative; width:100%; max-width:300px; margin:0 auto;
-    aspect-ratio:9/16; border-radius:14px; overflow:hidden;
+    aspect-ratio:9/16; border-radius:var(--r-photo); overflow:hidden;
     box-shadow:0 24px 60px rgba(26,21,24,.22);
     border:1px solid var(--line); background:#000;
   }
@@ -364,7 +379,7 @@
   }
   .gallery{columns:3 260px; column-gap:18px;}
   .gallery img{
-    width:100%; margin-bottom:18px; border-radius:2px;
+    width:100%; margin-bottom:18px; border-radius:var(--r-media);
     box-shadow:0 14px 34px rgba(26,21,24,.12);
     transition:transform .4s ease;
   }
@@ -385,7 +400,7 @@
   }
   .contact-card{
     background:rgba(255,255,255,.05); border:1px solid rgba(203,176,121,.3);
-    border-radius:4px; padding:40px 24px; transition:background .25s, border-color .25s;
+    border-radius:var(--r-card); padding:40px 24px; transition:background .25s, border-color .25s;
   }
   .contact-card:hover{background:rgba(255,255,255,.1); border-color:var(--rose-soft);}
   .contact-card .name{font-size:1.2rem; margin-bottom:6px; color:var(--rose-soft);}
@@ -427,7 +442,7 @@
   #insta{background:var(--off);}
   .insta-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:760px; margin:0 auto;}
   .insta-card{
-    background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    background:#fff; border:1px solid var(--line); border-radius:var(--r-media); overflow:hidden;
     box-shadow:0 16px 40px rgba(26,21,24,.07);
   }
   .insta-card iframe{width:100%; height:560px; border:0; display:block;}
@@ -452,7 +467,18 @@
   }
   .wa-options a:hover{transform:translateX(-3px);}
   .wa-options a small{color:var(--muted); font-weight:400;}
-  .wa-options a .dot{width:8px; height:8px; border-radius:50%; background:#25D366; flex-shrink:0;}
+  .wa-options a .dot{
+    width:8px; height:8px; border-radius:50%; background:#25D366; flex-shrink:0;
+    animation:wa-online 2s ease-in-out infinite;
+  }
+  @keyframes wa-online{
+    0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55);}
+    70%{box-shadow:0 0 0 6px rgba(37,211,102,0);}
+  }
+  /* sem numero configurado: nao expoe link quebrado */
+  .wa-options a[aria-disabled="true"]{opacity:.6; cursor:default;}
+  .wa-options a[aria-disabled="true"]:hover{transform:none;}
+  .wa-options a[aria-disabled="true"] .dot{background:var(--muted); animation:none;}
   .wa-btn{
     width:60px; height:60px; border-radius:50%; border:none; cursor:pointer;
     background:#25D366; box-shadow:0 10px 30px rgba(37,211,102,.45);
@@ -531,7 +557,6 @@
         <h3>Camila<span class="verified" title="Perfil verificado"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#b8455f" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></h3>
         <span class="role">Produção & Edição de Conteúdo</span>
         <p>Responsável pela produção do dia a dia — postagens para Stories, edição de vídeos e criação de conteúdo — Camila cuida para que cada post e cada vídeo saia no ritmo e na qualidade que a marca merece.</p>
-        <p class="wa">WhatsApp · (21) 96519-9151</p>
       </div>
     </div>
 
@@ -543,7 +568,6 @@
         <h3>Millena<span class="verified" title="Perfil verificado"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#b8455f" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></h3>
         <span class="role">Estratégia & Direção de Conteúdo</span>
         <p>À frente do planejamento estratégico e da direção criativa, Millena traduz o posicionamento de cada marca em calendários editoriais, roteiros e campanhas que realmente conversam com o público.</p>
-        <p class="wa">WhatsApp · (21) 96772-1139</p>
       </div>
     </div>
   </div>
@@ -746,18 +770,13 @@
       <span class="eyebrow on-dark">Contato</span>
       <h2>Vamos construir sua marca?</h2>
       <div class="rule"></div>
-      <p>Fale diretamente com a Camila ou a Millena e receba uma proposta sob medida.</p>
+      <p>Fale com a gente no WhatsApp e receba uma proposta sob medida.</p>
     </div>
     <div class="contact-cards reveal">
       <div class="contact-card">
-        <div class="name">Camila</div>
-        <div class="num">(21) 96519-9151</div>
-        <a class="btn" href="https://wa.me/5521965199151" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-      </div>
-      <div class="contact-card">
-        <div class="name">Millena</div>
-        <div class="num">(21) 96772-1139</div>
-        <a class="btn" href="https://wa.me/5521967721139" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        <div class="name">CM Produções</div>
+        <div class="num" data-wa-number>(21) 00000-0000</div>
+        <a class="btn" data-wa-link href="#" target="_blank" rel="noopener">Chamar no WhatsApp</a>
       </div>
     </div>
   </div>
@@ -774,8 +793,7 @@
 
 <div class="wa-float" id="waFloat">
   <div class="wa-options" id="waOptions">
-    <a href="https://wa.me/5521965199151?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20CM%20Produ%C3%A7%C3%B5es%20e%20gostaria%20de%20um%20or%C3%A7amento%20%F0%9F%98%8A" target="_blank" rel="noopener"><span class="dot"></span>Camila <small>Produção</small></a>
-    <a href="https://wa.me/5521967721139?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20CM%20Produ%C3%A7%C3%B5es%20e%20gostaria%20de%20um%20or%C3%A7amento%20%F0%9F%98%8A" target="_blank" rel="noopener"><span class="dot"></span>Millena <small>Estratégia</small></a>
+    <a data-wa-link href="#" target="_blank" rel="noopener"><span class="dot"></span>CM Produções <small>Online</small></a>
   </div>
   <button class="wa-btn" id="waBtn" aria-label="Falar no WhatsApp" aria-expanded="false">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-4.9 1 1-4.8-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C4.4 9.6 9.6 4.4 16 4.4S27.6 9.6 27.6 15 22.4 24.8 16 24.8zm6.5-8.3c-.4-.2-2.1-1-2.4-1.1-.3-.1-.6-.2-.8.2-.2.4-.9 1.1-1.1 1.3-.2.2-.4.2-.8.1-.4-.2-1.5-.6-2.9-1.8-1.1-1-1.8-2.2-2-2.5-.2-.4 0-.5.2-.7.2-.2.4-.4.5-.6.2-.2.2-.4.4-.6.1-.2 0-.5 0-.7-.1-.2-.8-1.9-1.1-2.6-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.5-.3.4-1.2 1.2-1.2 2.8 0 1.7 1.2 3.3 1.4 3.5.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 2.1-.8 2.4-1.7.3-.8.3-1.6.2-1.7-.1-.2-.3-.3-.7-.4z"/></svg>
@@ -783,6 +801,13 @@
 </div>
 
 <script>
+  /* Abre sempre no inicio: impede o navegador de restaurar a posicao
+     anterior ao recarregar. Links com ancora (#contato) seguem funcionando. */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash) {
+    window.addEventListener('load', () => window.scrollTo(0, 0));
+  }
+
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
   const navBackdrop = document.getElementById('navBackdrop');
@@ -848,7 +873,42 @@
     reelIO.observe(reel);
   }
 
-  // Botão flutuante de WhatsApp
+  /* =====================================================================
+     WHATSAPP — UNICO PONTO DE EDICAO DO SITE
+     Troque os dois valores abaixo quando o numero definitivo chegar.
+     numero: so digitos, com 55 (pais) + DDD. Ex.: 5521987654321
+     exibir: como o numero aparece na tela. Ex.: (21) 98765-4321
+     Todos os botoes e textos de WhatsApp se atualizam sozinhos.
+     ===================================================================== */
+  const WHATSAPP = {
+    numero: '',
+    exibir: '(21) 00000-0000',
+    mensagem: 'Olá! Vim pelo site da CM Produções e gostaria de um orçamento 😊',
+  };
+
+  (() => {
+    const pronto = /^\d{12,13}$/.test(WHATSAPP.numero);
+    const href = pronto
+      ? `https://wa.me/${WHATSAPP.numero}?text=${encodeURIComponent(WHATSAPP.mensagem)}`
+      : null;
+
+    document.querySelectorAll('[data-wa-link]').forEach((el) => {
+      if (href) {
+        el.href = href;
+      } else {
+        // sem numero configurado: nao expoe link quebrado
+        el.removeAttribute('href');
+        el.setAttribute('aria-disabled', 'true');
+        el.title = 'WhatsApp ainda não configurado';
+      }
+    });
+    document.querySelectorAll('[data-wa-number]').forEach((el) => {
+      el.textContent = WHATSAPP.exibir;
+    });
+    if (!pronto) console.warn('[CM] Defina WHATSAPP.numero para ativar os botões de WhatsApp.');
+  })();
+
+  // Botao flutuante: abre o cartao de contato antes de sair para o WhatsApp
   const waBtn = document.getElementById('waBtn');
   const waOptions = document.getElementById('waOptions');
   const waFloat = document.getElementById('waFloat');
@@ -860,7 +920,8 @@
     };
     waBtn.addEventListener('click', (e) => { e.stopPropagation(); setWa(!waOptions.classList.contains('open')); });
     document.addEventListener('click', (e) => { if (!waFloat.contains(e.target)) setWa(false); });
-    waOptions.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setWa(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setWa(false); });
+    waOptions.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setWa(false)));
   }
 </script>
 
