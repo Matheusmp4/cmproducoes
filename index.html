@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CM Produções | Estratégia, criatividade & conexão</title>
-<link rel="icon" type="image/png" href="assets/img/logo-wine.png">
+<link rel="icon" type="image/png" href="assets/img/monogram-wine.png">
+<link rel="apple-touch-icon" href="assets/img/monogram-wine.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -71,12 +72,17 @@
   .logo b{color:var(--rose-soft); font-weight:400;}
   header.scrolled .logo{color:var(--ink);}
   header.scrolled .logo b{color:var(--rose);}
-  .logo img{
-    height:38px; width:auto; display:block;
-    filter:brightness(0) invert(1);
-    transition:filter .35s ease;
+  /* duas versoes reais da marca (branca / vinho) em vez de filtro CSS */
+  .logo .mark{position:relative; display:block; height:46px; transition:height .35s ease;}
+  .logo .mark img{
+    height:100%; width:auto; display:block;
+    transition:opacity .35s ease;
   }
-  header.scrolled .logo img{filter:none;}
+  .logo .mark img.on-dark{position:absolute; inset:0;}
+  .logo .mark img.on-light{opacity:0;}
+  header.scrolled .logo .mark{height:38px;}
+  header.scrolled .logo .mark img.on-dark{opacity:0;}
+  header.scrolled .logo .mark img.on-light{opacity:1;}
   nav ul{display:flex; gap:36px;}
   nav a{
     color:#fff; font-size:.74rem; letter-spacing:2.5px;
@@ -95,6 +101,12 @@
 
   @media (max-width:900px){
     header{padding:18px 18px 18px 24px;}
+    /* backdrop-filter torna o header bloco contentor dos descendentes fixed,
+       prendendo o menu e o backdrop a faixa do cabecalho ao rolar. */
+    header.scrolled{
+      -webkit-backdrop-filter:none; backdrop-filter:none;
+      background:rgba(255,255,255,.97);
+    }
     nav ul{
       position:fixed; top:0; right:0; bottom:0; width:80%; max-width:330px;
       background:linear-gradient(165deg, rgba(58,10,30,.97) 0%, rgba(20,5,12,.98) 100%);
@@ -116,7 +128,9 @@
       content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
       width:0; height:1px; background:var(--rose-soft); transition:width .25s ease;
     }
-    nav ul li a:hover{color:var(--rose-soft); padding-left:44px;}
+    /* o painel e sempre escuro no mobile: neutraliza a cor do header claro */
+    header.scrolled nav ul li a{color:#fff;}
+    nav ul li a:hover, header.scrolled nav ul li a:hover{color:var(--rose-soft); padding-left:44px;}
     nav ul li a:hover::before{width:24px;}
     nav ul.open li a{opacity:1; transform:translateX(0); transition:opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1), color .25s, padding-left .25s;}
     nav ul.open li:nth-child(1) a{transition-delay:.10s;}
@@ -384,7 +398,8 @@
   }
   footer .flogo{color:#fff; letter-spacing:6px; font-size:1.1rem; margin-bottom:18px;}
   footer .flogo b{color:var(--rose-soft);}
-  footer .flogo img{height:44px; width:auto; filter:brightness(0) invert(1); display:block; margin:0 auto 18px;}
+  footer .flogo img{height:72px; width:auto; display:block; margin:0 auto 18px;}
+  @media (max-width:600px){footer .flogo img{height:56px;}}
   footer a{color:var(--rose-soft); border-bottom:1px solid rgba(224,166,179,.4);}
   footer a:hover{color:#fff;}
   .socials{margin-bottom:16px; letter-spacing:1px;}
@@ -395,6 +410,7 @@
     .scroll-cue{display:none;}
     .hero{min-height:560px;}
     .logo{font-size:1.05rem; letter-spacing:3px;}
+    .logo .mark, header.scrolled .logo .mark{height:38px;}
     .plan-card{padding:34px 26px;}
     .gallery{columns:2 150px; column-gap:12px;}
     .gallery img{margin-bottom:12px;}
@@ -403,6 +419,7 @@
   }
   @media (max-width:400px){
     .logo{font-size:.95rem; letter-spacing:2px;}
+    .logo .mark, header.scrolled .logo .mark{height:32px;}
     .hero-inner h1{font-size:2.1rem;}
   }
 
@@ -465,7 +482,7 @@
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <header id="siteHeader">
-  <div class="logo"><img src="assets/img/logo-wine.png" alt="CM Produções"><span class="verified" title="Marca verificada"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e0a6b3" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></div>
+  <div class="logo"><span class="mark"><img class="on-light" src="assets/img/logo-lockup-wine.png" alt="CM Produções"><img class="on-dark" src="assets/img/logo-lockup-white.png" alt="" aria-hidden="true"></span><span class="verified" title="Marca verificada"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e0a6b3" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></div>
   <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">&#9776;</button>
   <nav>
     <ul id="navMenu">
@@ -747,7 +764,7 @@
 </section>
 
 <footer>
-  <div class="flogo"><img src="assets/img/logo-wine.png" alt="CM Produções"></div>
+  <div class="flogo"><img src="assets/img/logo-lockup-white.png" alt="CM Produções"></div>
   <div class="socials">
     <a href="https://www.instagram.com/somos_cmproducoes/" target="_blank" rel="noopener">@somos_cmproducoes</a> ·
     <a href="https://www.facebook.com/share/1CyiESe9HT/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
