@@ -464,6 +464,12 @@
     font-family:'Inter',sans-serif; font-size:.85rem; font-weight:500; text-decoration:none;
     padding:10px 16px; border-radius:30px; box-shadow:0 8px 24px rgba(26,21,24,.18);
     border:1px solid var(--line); white-space:nowrap; transition:transform .2s;
+    animation:wa-card 2s ease-in-out infinite;
+  }
+  /* brilho, nao escala: nao conflita com o translateX do hover */
+  @keyframes wa-card{
+    0%,100%{box-shadow:0 8px 24px rgba(26,21,24,.18), 0 0 0 0 rgba(37,211,102,.45);}
+    70%{box-shadow:0 8px 24px rgba(26,21,24,.18), 0 0 0 12px rgba(37,211,102,0);}
   }
   .wa-options a:hover{transform:translateX(-3px);}
   .wa-options a small{color:var(--muted); font-weight:400;}
@@ -476,9 +482,8 @@
     70%{box-shadow:0 0 0 6px rgba(37,211,102,0);}
   }
   /* sem numero configurado: nao expoe link quebrado */
-  .wa-options a[aria-disabled="true"]{opacity:.6; cursor:default;}
+  .wa-options a[aria-disabled="true"]{cursor:default;}
   .wa-options a[aria-disabled="true"]:hover{transform:none;}
-  .wa-options a[aria-disabled="true"] .dot{background:var(--muted); animation:none;}
   .wa-btn{
     width:60px; height:60px; border-radius:50%; border:none; cursor:pointer;
     background:#25D366; box-shadow:0 10px 30px rgba(37,211,102,.45);
@@ -497,6 +502,7 @@
 
   @media (prefers-reduced-motion: reduce){
     .wa-btn, .hero .btn, .section-head .rule{animation:none !important;}
+    .wa-options a, .wa-options a .dot{animation:none !important;}
     .btn:hover::after{animation:none !important;}
     .scroll-progress{transition:none !important;}
     html{scroll-behavior:auto;}
