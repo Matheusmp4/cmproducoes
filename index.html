@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CM Produções | Estratégia, criatividade & conexão</title>
+<title>CM Produções | Estratégia, criatividade &amp; conexão</title>
+<meta name="description" content="CM Produções: gestão de redes sociais, planejamento estratégico e produção de conteúdo audiovisual. Transformamos o Instagram e o TikTok da sua marca em uma extensão viva do seu negócio.">
+<meta name="author" content="CM Produções">
+<meta name="theme-color" content="#6d0f30">
+
+<!-- Preview ao compartilhar (WhatsApp, Instagram, Facebook, LinkedIn).
+     Ao publicar em um dominio proprio, troque og:image pela URL absoluta
+     (ex.: https://cmproducoes.com.br/assets/...) e adicione og:url. -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="CM Produções">
+<meta property="og:title" content="CM Produções | Estratégia, criatividade &amp; conexão">
+<meta property="og:description" content="Gestão de redes sociais, planejamento estratégico e produção de conteúdo audiovisual. Fale com a gente no WhatsApp e receba uma proposta sob medida.">
+<meta property="og:image" content="assets/Camila%20e%20Millena%20-%20CM%20Produ%C3%A7%C3%B5es%20_%20Ensaio%20Corporativo/CAMILA%20E%20MILLENA%20-%20CM%20PRODU%C3%87%C3%95ES%20(6).jpg">
+<meta property="og:image:alt" content="Camila e Millena, sócias da CM Produções">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="icon" type="image/png" href="assets/img/monogram-wine.png">
 <link rel="apple-touch-icon" href="assets/img/monogram-wine.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -328,36 +344,6 @@
   }
   .comp-grid div{font-size:.98rem; padding:22px 12px; background:var(--wine-dark);}
 
-  /* CLIENTES & FEEDBACKS */
-  #clientes-feedbacks{background:var(--white);}
-  .proof-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
-  .proof-card{
-    background:var(--off); border:1px solid var(--line); border-radius:var(--r-media);
-    padding:36px 32px; display:flex; flex-direction:column;
-    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
-  }
-  .proof-card:hover{transform:translateY(-6px); box-shadow:0 26px 54px rgba(184,69,95,.16); border-color:var(--rose-soft);}
-  .proof-head{display:flex; align-items:center; gap:15px; margin-bottom:20px;}
-  .proof-avatar{
-    width:62px; height:62px; border-radius:50%; object-fit:cover; flex-shrink:0;
-    border:2px solid var(--rose-soft); background:var(--white);
-  }
-  .proof-avatar.contain{object-fit:contain; padding:6px;}
-  .proof-id{display:flex; flex-direction:column; min-width:0;}
-  .proof-name{font-size:1.05rem; color:var(--wine-dark); display:flex; align-items:center; line-height:1.25;}
-  .proof-handle{font-size:.82rem; color:var(--rose); letter-spacing:.3px; margin-top:2px;}
-  .proof-handle:hover{text-decoration:underline;}
-  .proof-role{font-size:.85rem; color:var(--muted); margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--line);}
-  .proof-stars{color:var(--rose); letter-spacing:3px; font-size:.92rem; margin-bottom:14px;}
-  .proof-quote{color:var(--ink); font-family:'Fraunces',serif; font-style:italic; font-size:1.08rem; line-height:1.6; margin-bottom:22px; flex-grow:1;}
-  .proof-link{
-    align-self:flex-start; font-size:.76rem; letter-spacing:2px; text-transform:uppercase;
-    color:var(--wine-dark); border-bottom:1px solid var(--rose-soft); padding-bottom:3px;
-    transition:color .25s, border-color .25s;
-  }
-  .proof-link:hover{color:var(--rose); border-color:var(--rose);}
-  @media (max-width:900px){.proof-grid{grid-template-columns:1fr; max-width:460px; margin:0 auto;}}
-
   /* BASTIDORES */
   #bastidores{background:var(--off);}
   .bastidores-top{
@@ -395,8 +381,11 @@
   }
   #contato .section-head h2{color:#fff;}
   #contato .section-head p{color:#ecdfe3;}
+  /* auto-fit: com um unico cartao ele fica centralizado, e ainda acomoda
+     dois lado a lado caso um segundo contato volte a ser listado. */
   .contact-cards{
-    display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:700px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,338px));
+    justify-content:center; gap:24px; max-width:700px; margin:0 auto;
   }
   .contact-card{
     background:rgba(255,255,255,.05); border:1px solid rgba(203,176,121,.3);
@@ -405,7 +394,7 @@
   .contact-card:hover{background:rgba(255,255,255,.1); border-color:var(--rose-soft);}
   .contact-card .name{font-size:1.2rem; margin-bottom:6px; color:var(--rose-soft);}
   .contact-card .num{font-size:.95rem; color:#f5edf0; margin-bottom:24px;}
-  @media (max-width:700px){.contact-cards{grid-template-columns:1fr;}}
+  @media (max-width:700px){.contact-cards{grid-template-columns:minmax(0,338px);}}
 
   footer{
     background:var(--wine-dark); color:#b7a9ae; text-align:center;
@@ -505,9 +494,17 @@
     .wa-options a, .wa-options a .dot{animation:none !important;}
     .btn:hover::after{animation:none !important;}
     .scroll-progress{transition:none !important;}
+    /* o conteudo aparece direto, sem deslizar */
+    .reveal{opacity:1; transform:none; transition:none;}
     html{scroll-behavior:auto;}
   }
 </style>
+<!-- Sem JavaScript o observer nunca roda e os blocos .reveal ficariam
+     invisiveis: aqui o site continua legivel, so sem as animacoes. -->
+<noscript><style>
+  .reveal{opacity:1 !important; transform:none !important;}
+  .wa-options{opacity:1; transform:none; pointer-events:auto;}
+</style></noscript>
 </head>
 <body>
 
@@ -520,7 +517,6 @@
     <ul id="navMenu">
       <li><a href="#quem-somos">Quem Somos</a></li>
       <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#clientes-feedbacks">Clientes</a></li>
       <li><a href="#bastidores">Bastidores</a></li>
       <li><a href="#contato">Contato</a></li>
     </ul>
@@ -660,67 +656,12 @@
     <div class="complementares reveal">
       <h3>Serviços Complementares</h3>
       <div class="comp-grid">
-        <div>Gestão de Tráfego Pago</div>
         <div>Criação de Sites</div>
         <div>Bio Personalizada</div>
         <div>Organização do Perfil</div>
         <div>Edição de Vídeos</div>
         <div>Cobertura de Eventos</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section id="clientes-feedbacks">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Clientes &amp; Feedbacks</span>
-      <h2>Marcas que confiam na CM</h2>
-      <div class="rule"></div>
-      <p>Perfis reais que já contaram com a estratégia e a produção da CM Produções.</p>
-    </div>
-    <div class="proof-grid">
-      <article class="proof-card reveal">
-        <div class="proof-head">
-          <img class="proof-avatar" src="assets/avatar-thais.png" alt="Thais Malagrida" loading="lazy">
-          <div class="proof-id">
-            <span class="proof-name">Thais Malagrida<span class="verified" title="Perfil verificado"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#b8455f" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></span>
-            <a class="proof-handle" href="https://instagram.com/thaismalagrida" target="_blank" rel="noopener">@thaismalagrida</a>
-          </div>
-        </div>
-        <p class="proof-role">Maquiadora profissional · Rio de Janeiro</p>
-        <div class="proof-stars">★★★★★</div>
-        <p class="proof-quote">"A CM deu vida ao meu Instagram. Hoje o perfil tem a cara do meu trabalho e a minha agenda vive cheia — estratégia e cuidado em cada detalhe."</p>
-        <a class="proof-link" href="https://instagram.com/thaismalagrida" target="_blank" rel="noopener">Ver perfil →</a>
-      </article>
-
-      <article class="proof-card reveal">
-        <div class="proof-head">
-          <img class="proof-avatar contain" src="assets/avatar-aqp.png" alt="AQP Seguros" loading="lazy">
-          <div class="proof-id">
-            <span class="proof-name">AQP Seguros<span class="verified" title="Perfil verificado"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#b8455f" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></span>
-            <a class="proof-handle" href="https://instagram.com/aqpseguros" target="_blank" rel="noopener">@aqpseguros</a>
-          </div>
-        </div>
-        <p class="proof-role">Corretora de seguros e saúde · Brasil</p>
-        <div class="proof-stars">★★★★★</div>
-        <p class="proof-quote">"Profissionalismo do início ao fim. Nossos conteúdos ficaram claros, bonitos e passaram a gerar contato de verdade. Recomendo de olhos fechados."</p>
-        <a class="proof-link" href="https://instagram.com/aqpseguros" target="_blank" rel="noopener">Ver perfil →</a>
-      </article>
-
-      <article class="proof-card reveal">
-        <div class="proof-head">
-          <img class="proof-avatar" src="assets/avatar-genesis.png" alt="Dr. Gênesis Alves" loading="lazy">
-          <div class="proof-id">
-            <span class="proof-name">Dr. Gênesis Alves<span class="verified" title="Perfil verificado"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#b8455f" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#fff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36z"/></svg></span></span>
-            <a class="proof-handle" href="https://instagram.com/dr.genesisalves" target="_blank" rel="noopener">@dr.genesisalves</a>
-          </div>
-        </div>
-        <p class="proof-role">Médico &amp; empresário · +20 mil seguidores</p>
-        <div class="proof-stars">★★★★★</div>
-        <p class="proof-quote">"Equipe atenciosa e criativa. A produção dos vídeos elevou o nível do meu conteúdo e o engajamento cresceu muito. Uma parceria que vale cada centavo."</p>
-        <a class="proof-link" href="https://instagram.com/dr.genesisalves" target="_blank" rel="noopener">Ver perfil →</a>
-      </article>
     </div>
   </div>
 </section>
@@ -831,6 +772,14 @@
   navToggle.addEventListener('click', () => setMenu(!navMenu.classList.contains('open')));
   navBackdrop.addEventListener('click', () => setMenu(false));
   navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('open')) setMenu(false);
+  });
+  /* girar o celular ou voltar ao desktop esconde o painel via CSS, mas o
+     body continuaria travado em overflow:hidden — fecha o estado junto. */
+  window.matchMedia('(min-width:901px)').addEventListener('change', (e) => {
+    if (e.matches) setMenu(false);
+  });
 
   const header = document.getElementById('siteHeader');
   const scrollProgress = document.getElementById('scrollProgress');
@@ -887,8 +836,8 @@
      Todos os botoes e textos de WhatsApp se atualizam sozinhos.
      ===================================================================== */
   const WHATSAPP = {
-    numero: '',
-    exibir: '(21) 00000-0000',
+    numero: '5521995274859',
+    exibir: '(21) 99527-4859',
     mensagem: 'Olá! Vim pelo site da CM Produções e gostaria de um orçamento 😊',
   };
 
