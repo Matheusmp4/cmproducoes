@@ -345,7 +345,8 @@
   .comp-grid div{font-size:.98rem; padding:22px 12px; background:var(--wine-dark);}
 
   /* BASTIDORES */
-  #bastidores{background:var(--off);}
+  /* branco para alternar com o #servicos, que vem logo acima em var(--off) */
+  #bastidores{background:var(--white);}
   .bastidores-top{
     display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center; margin-bottom:56px;
   }
@@ -426,23 +427,6 @@
     .logo .mark, header.scrolled .logo .mark{height:32px;}
     .hero-inner h1{font-size:2.1rem;}
   }
-
-  /* INSTAGRAM AO VIVO */
-  #insta{background:var(--off);}
-  .insta-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:760px; margin:0 auto;}
-  .insta-card{
-    background:#fff; border:1px solid var(--line); border-radius:var(--r-media); overflow:hidden;
-    box-shadow:0 16px 40px rgba(26,21,24,.07);
-  }
-  .insta-card iframe{width:100%; height:560px; border:0; display:block;}
-  .insta-follow{text-align:center; margin-top:clamp(36px,5vw,52px);}
-  .insta-follow a{
-    display:inline-flex; align-items:center; gap:10px; font-family:'Inter',sans-serif;
-    font-size:.78rem; letter-spacing:2px; text-transform:uppercase; color:var(--wine-dark);
-    border:1px solid var(--rose-soft); border-radius:30px; padding:14px 30px; transition:all .25s;
-  }
-  .insta-follow a:hover{background:var(--rose); color:#fff; border-color:var(--rose);}
-  @media (max-width:900px){.insta-grid{grid-template-columns:1fr; max-width:400px; margin:0 auto;}}
 
   /* WHATSAPP FLUTUANTE */
   .wa-float{position:fixed; right:22px; bottom:22px; z-index:200; display:flex; flex-direction:column; align-items:flex-end; gap:12px;}
@@ -662,28 +646,6 @@
         <div>Edição de Vídeos</div>
         <div>Cobertura de Eventos</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section id="insta">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">No Instagram</span>
-      <h2>Conteúdo no ar, todo dia</h2>
-      <div class="rule"></div>
-      <p>Os perfis reais de quem confia na CM — atualizados em tempo real, direto do Instagram.</p>
-    </div>
-    <div class="insta-grid">
-      <div class="insta-card reveal">
-        <iframe src="https://www.instagram.com/thaismalagrida/embed" loading="lazy" title="Instagram de Thais Malagrida" scrolling="no"></iframe>
-      </div>
-      <div class="insta-card reveal">
-        <iframe src="https://www.instagram.com/aqpseguros/embed" loading="lazy" title="Instagram da AQP Seguros" scrolling="no"></iframe>
-      </div>
-    </div>
-    <div class="insta-follow reveal">
-      <a href="https://www.instagram.com/somos_cmproducoes/" target="_blank" rel="noopener">Siga a CM no Instagram</a>
     </div>
   </div>
 </section>
