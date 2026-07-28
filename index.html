@@ -348,7 +348,10 @@
   /* branco para alternar com o #servicos, que vem logo acima em var(--off) */
   #bastidores{background:var(--white);}
   .bastidores-top{
-    display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center; margin-bottom:56px;
+    display:grid; grid-template-columns:.85fr 1.15fr; gap:48px; align-items:center; margin-bottom:56px;
+  }
+  .reel-duo{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:20px; align-items:start;
   }
   .reel-player{
     position:relative; width:100%; max-width:300px; margin:0 auto;
@@ -363,6 +366,7 @@
   @media (max-width:860px){
     .bastidores-top{grid-template-columns:1fr; gap:28px;}
     .reel-caption{max-width:none; text-align:center;}
+    .reel-duo{gap:14px;}
   }
   .gallery{columns:3 260px; column-gap:18px;}
   .gallery img{
@@ -664,10 +668,17 @@
         <h3>Do roteiro à entrega</h3>
         <p>Planejamento, captação e edição — cada detalhe cuidado de perto para que sua marca apareça com a qualidade que merece. Dê o play e veja um pouco desse processo.</p>
       </div>
-      <div class="reel-player">
-        <video id="reelVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (20).jpg">
-          <source src="assets/bastidores.mp4" type="video/mp4">
-        </video>
+      <div class="reel-duo">
+        <div class="reel-player">
+          <video class="reel-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (20).jpg">
+            <source src="assets/bastidores.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="reel-player">
+          <video class="reel-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (20).jpg">
+            <source src="assets/bastidores2.MP4" type="video/mp4">
+          </video>
+        </div>
       </div>
     </div>
   </div>
@@ -775,19 +786,19 @@
   });
 
   // Mini player: toca em loop quando visível, pausa ao sair da tela
-  const reel = document.getElementById('reelVideo');
-  if (reel) {
+  const reels = document.querySelectorAll('.reel-video');
+  if (reels.length) {
     const reelIO = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const p = reel.play();
+          const p = entry.target.play();
           if (p) p.catch(() => {});
         } else {
-          reel.pause();
+          entry.target.pause();
         }
       });
     }, { threshold: 0.4 });
-    reelIO.observe(reel);
+    reels.forEach(v => reelIO.observe(v));
   }
 
   /* =====================================================================
