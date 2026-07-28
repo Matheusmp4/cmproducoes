@@ -803,6 +803,15 @@
       });
     };
 
+    // em conexao lenta o play() inicial acontece sem dados suficientes;
+    // ao terminar de carregar, tenta de novo se ainda estiver na tela
+    reels.forEach(v => {
+      ['loadeddata','canplay'].forEach(ev => v.addEventListener(ev, () => {
+        const r = v.getBoundingClientRect();
+        if (v.paused && r.top < window.innerHeight && r.bottom > 0) tentarTocar(v);
+      }));
+    });
+
     // limiar baixo: em telas pequenas o reel 9/16 raramente aparece inteiro
     const reelIO = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
