@@ -788,17 +788,47 @@
   // Mini player: toca em loop quando visível, pausa ao sair da tela
   const reels = document.querySelectorAll('.reel-video');
   if (reels.length) {
+    // mudo no proprio objeto: alguns navegadores so liberam o autoplay assim
+    reels.forEach(v => { v.muted = true; v.defaultMuted = true; });
+
+    const tentarTocar = (v) => {
+      const p = v.play();
+      if (p) p.catch(() => {});
+    };
+    // toca todo video que estiver na tela agora
+    const tocarVisiveis = () => {
+      reels.forEach(v => {
+        const r = v.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) tentarTocar(v);
+      });
+    };
+
+    // limiar baixo: em telas pequenas o reel 9/16 raramente aparece inteiro
     const reelIO = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const p = entry.target.play();
-          if (p) p.catch(() => {});
-        } else {
-          entry.target.pause();
-        }
+        if (entry.isIntersecting) tentarTocar(entry.target);
+        else entry.target.pause();
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.15 });
     reels.forEach(v => reelIO.observe(v));
+
+    // se o autoplay for bloqueado (iOS em modo de baixo consumo, por ex.),
+    // o primeiro toque/rolagem na pagina destrava — uma vez so
+    const destravar = () => {
+      tocarVisiveis();
+      ['touchstart','click','scroll','keydown'].forEach(ev =>
+        window.removeEventListener(ev, destravar)
+      );
+    };
+    ['touchstart','click','scroll','keydown'].forEach(ev =>
+      window.addEventListener(ev, destravar, { passive: true, once: false })
+    );
+
+    // volta a tocar ao retornar para a aba
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) tocarVisiveis();
+    });
+    window.addEventListener('pageshow', tocarVisiveis);
   }
 
   /* =====================================================================
