@@ -360,6 +360,23 @@
     border:1px solid var(--line); background:#000;
   }
   .reel-player video{width:100%; height:100%; object-fit:cover; display:block;}
+  /* Botao de som: autoplay so e liberado no mudo, entao o audio entra
+     por gesto do visitante. Fica sobre o video, canto inferior direito. */
+  .reel-sound{
+    position:absolute; right:10px; bottom:10px; z-index:2;
+    width:40px; height:40px; border-radius:50%; cursor:pointer;
+    display:grid; place-items:center;
+    background:rgba(15,10,12,.55); border:1px solid rgba(255,255,255,.35);
+    backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+    transition:background .25s, border-color .25s, transform .2s;
+  }
+  .reel-sound:hover{background:rgba(15,10,12,.8); border-color:var(--rose-soft); transform:scale(1.06);}
+  .reel-sound:focus-visible{outline:2px solid var(--rose-soft); outline-offset:3px;}
+  .reel-sound svg{width:21px; height:21px; fill:#fff; stroke:#fff;}
+  .reel-sound .ico-on{display:none;}
+  .reel-sound[aria-pressed="true"] .ico-on{display:block;}
+  .reel-sound[aria-pressed="true"] .ico-off{display:none;}
+  @media (max-width:600px){.reel-sound{width:36px; height:36px; right:8px; bottom:8px;} .reel-sound svg{width:18px; height:18px;}}
   .reel-caption{max-width:420px;}
   .reel-caption h3{font-size:1.6rem; color:var(--wine-dark); margin-bottom:16px;}
   .reel-caption p{color:var(--muted); font-size:1.02rem;}
@@ -673,11 +690,19 @@
           <video class="reel-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (20).jpg">
             <source src="assets/bastidores.mp4" type="video/mp4">
           </video>
+          <button class="reel-sound" type="button" aria-label="Ativar o som do vídeo" aria-pressed="false">
+            <svg class="ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/><path d="m16.5 9 5 6m0-6-5 6" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            <svg class="ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </button>
         </div>
         <div class="reel-player">
           <video class="reel-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/Camila e Millena - CM Produções _ Ensaio Corporativo/CAMILA E MILLENA - CM PRODUÇÕES (20).jpg">
             <source src="assets/bastidores2.mp4" type="video/mp4">
           </video>
+          <button class="reel-sound" type="button" aria-label="Ativar o som do vídeo" aria-pressed="false">
+            <svg class="ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/><path d="m16.5 9 5 6m0-6-5 6" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            <svg class="ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -690,13 +715,18 @@
       <span class="eyebrow on-dark">Contato</span>
       <h2>Vamos construir sua marca?</h2>
       <div class="rule"></div>
-      <p>Fale com a gente no WhatsApp e receba uma proposta sob medida.</p>
+      <p>Fale com a gente no WhatsApp ou por e-mail e receba uma proposta sob medida.</p>
     </div>
     <div class="contact-cards reveal">
       <div class="contact-card">
         <div class="name">CM Produções</div>
         <div class="num" data-wa-number>(21) 00000-0000</div>
         <a class="btn" data-wa-link href="#" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
+      <div class="contact-card">
+        <div class="name">E-mail</div>
+        <div class="num">contato@somoscmproducoes.com.br</div>
+        <a class="btn" href="mailto:contato@somoscmproducoes.com.br?subject=Or%C3%A7amento%20-%20CM%20Produ%C3%A7%C3%B5es">Enviar e-mail</a>
       </div>
     </div>
   </div>
@@ -706,7 +736,8 @@
   <div class="flogo"><img src="assets/img/logo-lockup-white.png" alt="CM Produções"></div>
   <div class="socials">
     <a href="https://www.instagram.com/somos_cmproducoes/" target="_blank" rel="noopener">@somos_cmproducoes</a> ·
-    <a href="https://www.facebook.com/share/1CyiESe9HT/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.facebook.com/share/1CyiESe9HT/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a> ·
+    <a href="mailto:contato@somoscmproducoes.com.br">contato@somoscmproducoes.com.br</a>
   </div>
   <div>&copy; 2026 CM Produções. Todos os direitos reservados.</div>
 </footer>
@@ -788,7 +819,8 @@
   // Mini player: toca em loop quando visível, pausa ao sair da tela
   const reels = document.querySelectorAll('.reel-video');
   if (reels.length) {
-    // mudo no proprio objeto: alguns navegadores so liberam o autoplay assim
+    // mudo no proprio objeto: alguns navegadores so liberam o autoplay assim.
+    // O som volta apenas por clique no botao (ver bloco do .reel-sound abaixo).
     reels.forEach(v => { v.muted = true; v.defaultMuted = true; });
 
     const tentarTocar = (v) => {
@@ -838,6 +870,41 @@
       if (!document.hidden) tocarVisiveis();
     });
     window.addEventListener('pageshow', tocarVisiveis);
+
+    // Botao de som de cada reel. Um de cada vez: ligar um cala o outro,
+    // para os dois audios nunca tocarem sobrepostos.
+    const botoesSom = document.querySelectorAll('.reel-sound');
+    const aplicarSom = (video, ligado) => {
+      video.muted = !ligado;
+      video.defaultMuted = !ligado;
+      const btn = video.parentElement.querySelector('.reel-sound');
+      if (btn) {
+        btn.setAttribute('aria-pressed', ligado ? 'true' : 'false');
+        btn.setAttribute('aria-label', ligado ? 'Desativar o som do vídeo' : 'Ativar o som do vídeo');
+      }
+    };
+
+    botoesSom.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const video = btn.parentElement.querySelector('.reel-video');
+        if (!video) return;
+        const ligar = video.muted;
+        reels.forEach(v => { if (v !== video) aplicarSom(v, false); });
+        aplicarSom(video, ligar);
+        // o clique tambem serve de gesto para destravar a reproducao
+        if (ligar && video.paused) tentarTocar(video);
+      });
+    });
+
+    // ao sair da tela ou da aba, o video volta ao mudo: evita audio
+    // tocando em um reel que o visitante nem esta vendo
+    const calarTodos = () => reels.forEach(v => aplicarSom(v, false));
+    const somIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (!entry.isIntersecting) aplicarSom(entry.target, false); });
+    }, { threshold: 0.15 });
+    reels.forEach(v => somIO.observe(v));
+    document.addEventListener('visibilitychange', () => { if (document.hidden) calarTodos(); });
   }
 
   /* =====================================================================
