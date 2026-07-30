@@ -42,15 +42,6 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* ---------- AURORA ----------
-     Mesma ideia do componente React (faixas de cor em repeating-linear-gradient,
-     borradas e em movimento), só que em CSS puro e na paleta da marca.
-
-     A diferença importante é o que anima: o original move background-position,
-     o que obriga o navegador a repintar E reborrar a camada inteira a cada
-     frame — em 4K isso engasga. Aqui o blur é calculado uma vez e a camada
-     inteira só desliza via transform, que o compositor resolve na GPU.
-     As dimensões têm teto em px para a textura não explodir em telas grandes. */
   .aurora{
     position:fixed;
     inset:0;
@@ -58,44 +49,43 @@
     pointer-events:none;
     overflow:hidden;
   }
-  /* Fitas nas cores reais da marca — sem invert/difference/sepia. Aquele
-     caminho (fiel ao componente original) sempre deixava passar um resíduo
-     de matiz que não é da paleta da CM; aqui a cor que se vê é a cor que
-     está escrita no gradiente.
-     Duas camadas com ângulo, escala e velocidade diferentes, cada uma só
-     com transform animando (não background-position), para não pedir
-     reblur a cada frame em telas grandes. */
-  .aurora .layer{
+  .aurora::after{
+    content:"";
     position:absolute;
-    inset:-20% -10%;
-    filter:blur(50px);
-    opacity:.5;
-    mask-image:radial-gradient(ellipse 70% 90% at 50% 0%,#000 10%,transparent 72%);
-    -webkit-mask-image:radial-gradient(ellipse 70% 90% at 50% 0%,#000 10%,transparent 72%);
+    inset:-10px;
+    background-image:
+      repeating-linear-gradient(100deg,var(--off) 0%,var(--off) 7%,transparent 10%,transparent 12%,var(--off) 16%),
+      repeating-linear-gradient(100deg,var(--wine) 10%,var(--rose) 15%,var(--champagne) 20%,var(--rose) 25%,var(--wine-dark) 30%);
+    background-size:300% 200%;
+    background-position:50% 50%;
+    filter:blur(10px);
+    opacity:.45;
+    animation:aurora 20s ease infinite;
+    will-change:background-position;
   }
-  .aurora .layer span{
+  .aurora::before{
+    content:"";
     position:absolute;
-    inset:-20%;
-    will-change:transform;
+    inset:-10px;
+    background-image:
+      repeating-linear-gradient(100deg,var(--off) 0%,var(--off) 7%,transparent 10%,transparent 12%,var(--off) 16%),
+      repeating-linear-gradient(100deg,var(--wine) 10%,var(--rose) 15%,var(--champagne) 20%,var(--rose) 25%,var(--wine-dark) 30%);
+    background-size:200% 100%;
+    background-attachment:fixed;
+    filter:blur(10px);
+    mix-blend-mode:difference;
+    opacity:.45;
+    animation:aurora 20s ease infinite;
+    will-change:background-position;
   }
-  .aurora .r1{
-    background-image:repeating-linear-gradient(100deg,
-      var(--wine) 0%,var(--rose) 8%,var(--champagne) 16%,transparent 24%,var(--wine) 32%);
-    animation:driftA 18s linear infinite alternate;
+  .aurora .mask{
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at 100% 0%,transparent 10%,var(--off) 70%);
   }
-  .aurora .r2{
-    background-image:repeating-linear-gradient(74deg,
-      var(--rose) 0%,transparent 10%,var(--champagne) 18%,transparent 28%,var(--wine-dark) 36%);
-    opacity:.8;
-    animation:driftB 22s linear infinite alternate-reverse;
-  }
-  @keyframes driftA{
-    from{transform:translate3d(-6%,-4%,0) rotate(0deg) scale(1)}
-    to{transform:translate3d(6%,4%,0) rotate(3deg) scale(1.15)}
-  }
-  @keyframes driftB{
-    from{transform:translate3d(5%,3%,0) rotate(0deg) scale(1.1)}
-    to{transform:translate3d(-5%,-5%,0) rotate(-4deg) scale(1)}
+  @keyframes aurora{
+    0%{background-position:50% 50%,50% 50%}
+    100%{background-position:350% 50%,350% 50%}
   }
 
   main{position:relative;z-index:1;width:100%;max-width:392px;text-align:center}
@@ -194,7 +184,7 @@
 <body>
 
 <div class="aurora" aria-hidden="true">
-  <div class="layer"><span class="r1"></span><span class="r2"></span></div>
+  <div class="mask"></div>
 </div>
 
 <main>
