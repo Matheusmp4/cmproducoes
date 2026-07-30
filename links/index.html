@@ -49,43 +49,33 @@
     pointer-events:none;
     overflow:hidden;
   }
-  .aurora::after{
-    content:"";
+  .aurora span{
     position:absolute;
-    inset:-10px;
-    background-image:
-      repeating-linear-gradient(100deg,var(--off) 0%,var(--off) 7%,transparent 10%,transparent 12%,var(--off) 16%),
-      repeating-linear-gradient(100deg,var(--wine) 10%,var(--rose) 15%,var(--champagne) 20%,var(--rose) 25%,var(--wine-dark) 30%);
-    background-size:300% 200%;
-    background-position:50% 50%;
-    filter:blur(10px);
-    opacity:.45;
-    animation:aurora 20s ease infinite;
-    will-change:background-position;
+    width:min(600px,80vw);
+    height:min(600px,80vw);
+    border-radius:50%;
+    filter:blur(80px);
+    will-change:transform;
   }
-  .aurora::before{
-    content:"";
-    position:absolute;
-    inset:-10px;
-    background-image:
-      repeating-linear-gradient(100deg,var(--off) 0%,var(--off) 7%,transparent 10%,transparent 12%,var(--off) 16%),
-      repeating-linear-gradient(100deg,var(--wine) 10%,var(--rose) 15%,var(--champagne) 20%,var(--rose) 25%,var(--wine-dark) 30%);
-    background-size:200% 100%;
-    background-attachment:fixed;
-    filter:blur(10px);
-    mix-blend-mode:difference;
-    opacity:.45;
-    animation:aurora 20s ease infinite;
-    will-change:background-position;
+  .aurora .a1{
+    top:-18%;right:-8%;
+    background:radial-gradient(circle,var(--champagne) 0%,transparent 70%);
+    opacity:.5;
+    animation:floatA 40s ease-in-out infinite alternate;
   }
-  .aurora .mask{
-    position:absolute;
-    inset:0;
-    background:radial-gradient(ellipse at 100% 0%,transparent 10%,var(--off) 70%);
+  .aurora .a2{
+    top:-10%;left:-12%;
+    background:radial-gradient(circle,var(--rose) 0%,transparent 70%);
+    opacity:.18;
+    animation:floatB 50s ease-in-out infinite alternate-reverse;
   }
-  @keyframes aurora{
-    0%{background-position:50% 50%,50% 50%}
-    100%{background-position:350% 50%,350% 50%}
+  @keyframes floatA{
+    from{transform:translate3d(0,0,0) scale(1)}
+    to{transform:translate3d(-8%,12%,0) scale(1.1)}
+  }
+  @keyframes floatB{
+    from{transform:translate3d(0,0,0) scale(1.05)}
+    to{transform:translate3d(10%,8%,0) scale(.95)}
   }
 
   main{position:relative;z-index:1;width:100%;max-width:392px;text-align:center}
@@ -184,7 +174,7 @@
 <body>
 
 <div class="aurora" aria-hidden="true">
-  <div class="mask"></div>
+  <span class="a1"></span><span class="a2"></span>
 </div>
 
 <main>
